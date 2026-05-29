@@ -1,0 +1,50 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: markmarkdown-production
+  cancel-in-progress: true
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  deploy:
+    name: Build and publish to local Nginx
+    runs-on: [self-hosted, Linux, X64, markmarkdown, local-nginx]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint || true
+
+      - name: Build
+        run: npm run build
+
+      - name: Publish static files
+        run: |
+          set -euo pipefail
+          mkdir -p /var/www/markmarkdown
+          rsync -a --delete dist/ /var/www/markmarkdown/
+
+      - name: Verify local route
+        run: |
+          curl -fsSI -H "Host: markmarkdown.vazquezalejandro.com" http://127.0.0.1/ | head
+
+      - name: Verify public route
+        run: |
+          curl -fsSI https://markmarkdown.vazquezalejandro.com/ | head
