@@ -1,46 +1,55 @@
 import { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false)
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const location = useLocation()
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
+      setScrolled(window.scrollY > 30)
     }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const isActive = (path) => location.pathname === path ? 'active' : ''
+
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="nav-container">
-        <a href="#" className="nav-logo">
+        <Link to="/" className="nav-logo">
           <svg viewBox="0 0 32 32" className="logo-icon">
-            <defs>
-              <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#00ffff" />
-                <stop offset="100%" stopColor="#ff00ff" />
-              </linearGradient>
-            </defs>
-            <polygon points="16,2 30,10 30,22 16,30 2,22 2,10" fill="none" stroke="url(#logoGradient)" strokeWidth="2"/>
-            <text x="16" y="20" textAnchor="middle" fill="url(#logoGradient)" fontFamily="monospace" fontSize="10" fontWeight="bold">MM</text>
+            <polygon 
+              points="16,3 28,10 28,22 16,29 4,22 4,10" 
+              fill="none" 
+              stroke="#00f0ff" 
+              strokeWidth="1.5"
+            />
+            <path 
+              d="M10 20 L14 16 L18 18 L22 12" 
+              fill="none" 
+              stroke="#ff00aa" 
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
           <span className="logo-text">markmarkdown</span>
-        </a>
-        
-        <button className="mobile-menu-toggle" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+        </Link>
+
+        <div className="nav-links">
+          <Link to="/" className={`nav-link ${isActive('/')}`}>Inicio</Link>
+          <Link to="/typing" className={`nav-link ${isActive('/typing')}`}>Mecanografia</Link>
+          <Link to="/markdown" className={`nav-link ${isActive('/markdown')}`}>Markdown</Link>
+          <Link to="/progress" className={`nav-link ${isActive('/progress')}`}>Progreso</Link>
+        </div>
+
+        <button className="mobile-menu-toggle">
           <span></span>
           <span></span>
           <span></span>
         </button>
-
-        <div className={`nav-links ${mobileMenuOpen ? 'open' : ''}`}>
-          <a href="#hero" className="nav-link">Inicio</a>
-          <a href="#typing" className="nav-link">Mecanografia</a>
-          <a href="#markdown" className="nav-link">Markdown</a>
-          <a href="#roadmap" className="nav-link">Progreso</a>
-        </div>
       </div>
     </nav>
   )
