@@ -6,39 +6,33 @@ import anime from 'animejs'
 const markdownLessons = [
   { 
     id: 1,
-    title: 'Encabezados', 
-    content: '# Encabezados\n\nLos encabezados van del 1 al 6\n\n# H1\n## H2\n### H3\n#### H4\n##### H5\n###### H6',
-    description: 'Usa # para crear encabezados de diferentes niveles'
+    title: 'Encabezados',
+    content: '# Encabezados\n\nLos encabezados van del 1 al 6\n\n# H1 - Titulo Principal\n## H2 - Seccion\n### H3 - Subseccion\n#### H4\n##### H5\n###### H6'
   },
   { 
     id: 2,
-    title: 'Formato de Texto', 
-    content: '# Formato de Texto\n\n**Negrita** con asteriscos dobles\n\n*Cursiva* con asteriscos simples\n\n***Negrita y cursiva*** combinados\n\n~~Tachado~~ con virgulillas',
-    description: 'Aprende a formatear texto en negrita, cursiva y mas'
+    title: 'Formato de Texto',
+    content: '# Formato de Texto\n\n**Negrita** - texto importante\n\n*Italica* - enfasis\n\n***Negrita e Italiana*** - maxima prioridad\n\n~~Tachado~~ - texto eliminado'
   },
   { 
     id: 3,
-    title: 'Enlaces', 
-    content: '# Enlaces\n\n[Texto visible](https://ejemplo.com)\n\n[Con titulo](https://ejemplo.com "Titulo opcional")\n\n[Referencia][ref]\n\n[ref]: https://referencia.com',
-    description: 'Crea enlaces a otras paginas o recursos'
+    title: 'Enlaces',
+    content: '# Enlaces\n\n[Texto visible](https://ejemplo.com)\n\n[Con titulo](https://ejemplo.com "Descripcion")\n\n[Referencia][ref]\n\n[ref]: https://referencia.com'
   },
   { 
     id: 4,
-    title: 'Listas', 
-    content: '# Listas\n\n## No ordenadas\n- Elemento 1\n- Elemento 2\n  - Sub elemento\n  - Otro sub\n\n## Ordenadas\n1. Primero\n2. Segundo\n3. Tercero',
-    description: 'Crea listas ordenadas y desordenadas'
+    title: 'Listas',
+    content: '# Listas\n\n## Desordenadas\n- Elemento uno\n- Elemento dos\n  - Sub elemento\n  - Otro mas\n\n## Ordenadas\n1. Primero\n2. Segundo\n3. Tercero'
   },
   { 
     id: 5,
-    title: 'Codigo', 
-    content: '# Codigo\n\n`Codigo inline`\n\n```javascript\nconst hola = "mundo";\nconsole.log(hola);\n```\n\n> Bloque de cita',
-    description: 'Inserta codigo en linea y bloques de codigo'
+    title: 'Codigo',
+    content: '# Codigo\n\n`Codigo en linea`\n\n```javascript\nconst hola = "mundo";\nfunction saludar() {\n  console.log(hola);\n}\n```'
   },
   { 
     id: 6,
-    title: 'Tablas', 
-    content: '# Tablas\n\n| Encabezado 1 | Encabezado 2 |\n|--------------|--------------|\n| Dato 1       | Dato 2       |\n| Dato 3       | Dato 4       |',
-    description: 'Crea tablas para organizar informacion'
+    title: 'Tablas',
+    content: '# Tablas\n\n| Lenguaje | Tipo |\n|----------|-------|\n| JavaScript | Dinamico |\n| Python | Interpretado |\n| Rust | Compilado |'
   }
 ]
 
@@ -129,7 +123,7 @@ function MarkdownPractice() {
           <circle cx="12" cy="12" r="10"/>
           <path d="M12 16v-4M12 8h.01"/>
         </svg>
-        <p>{markdownLessons[selected].description}</p>
+        <p>Lección {markdownLessons[selected].id} de {markdownLessons.length}: {markdownLessons[selected].title}</p>
       </div>
     </div>
   )

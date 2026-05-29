@@ -5,7 +5,6 @@ import TypingPractice from './components/TypingPractice'
 import MarkdownPractice from './components/MarkdownPractice'
 import Roadmap from './components/Roadmap'
 import Navbar from './components/Navbar'
-import VimPractice from './components/VimPractice'
 import './styles/App.css'
 
 function GlitchText({ text }) {
@@ -23,28 +22,22 @@ function GlitchText({ text }) {
         setTimeout(() => setIsGlitching(true), 2000)
       }
     }, 150)
-
     return () => clearInterval(interval)
   }, [text])
 
   useEffect(() => {
     if (isGlitching) {
       const interval = setInterval(() => {
-        setDisplayText(prev => {
+        setDisplayText(() => {
           const glitchChars = '!@#$%^&*()_+-=[]{}|;:,.<>?/~`'
-          let result = ''
-          for (let i = 0; i < text.length; i++) {
-            if (Math.random() > 0.9) {
-              result += glitchChars[Math.floor(Math.random() * glitchChars.length)]
-            } else {
-              result += text[i]
-            }
-          }
-          return result
+          return text.split('').map(char => 
+            Math.random() > 0.9 
+              ? glitchChars[Math.floor(Math.random() * glitchChars.length)]
+              : char
+          ).join('')
         })
         setTimeout(() => setDisplayText(text), 50)
       }, 100)
-
       return () => clearInterval(interval)
     }
   }, [isGlitching, text])
@@ -59,7 +52,6 @@ function TypewriterText({ texts, speed = 50 }) {
 
   useEffect(() => {
     const currentFullText = texts[currentTextIndex]
-    
     if (!isDeleting && currentText.length < currentFullText.length) {
       const timeout = setTimeout(() => {
         setCurrentText(currentFullText.slice(0, currentText.length + 1))
@@ -71,7 +63,7 @@ function TypewriterText({ texts, speed = 50 }) {
       }, speed / 2)
       return () => clearTimeout(timeout)
     } else if (!isDeleting && currentText.length === currentFullText.length) {
-      setTimeout(() => setIsDeleting(true), 2000)
+      setTimeout(() => setIsDeleting(true), 2500)
     } else if (isDeleting && currentText.length === 0) {
       setIsDeleting(false)
       setCurrentTextIndex((prev) => (prev + 1) % texts.length)
@@ -92,7 +84,6 @@ function Hero() {
   useEffect(() => {
     import('animejs').then(({ default: anime }) => {
       const timeline = anime.timeline({ easing: 'easeOutExpo' })
-      
       timeline
         .add({
           targets: '.hero-subtitle',
@@ -119,21 +110,21 @@ function Hero() {
         <p className="hero-subtitle">
           <TypewriterText 
             texts={[
-              'Practica mecanografia como un hacker',
-              'Domina el markdown con estilo',
-              'Conquista vim como un ninja'
+              'Domina la mecanografia con precision',
+              'Aprende markdown de forma interactiva',
+              'Escribe mas rapido, escribe mejor'
             ]} 
           />
         </p>
         <div className="hero-cta">
-          <a href="#roadmap" className="cta-button primary">
-            <span>Explorar Roadmap</span>
+          <a href="#typing" className="cta-button primary">
+            <span>Comenzar</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
           </a>
-          <a href="#typing" className="cta-button secondary">
-            <span>Comenzar Practica</span>
+          <a href="#roadmap" className="cta-button secondary">
+            <span>Ver Progreso</span>
           </a>
         </div>
       </div>
@@ -156,13 +147,14 @@ function App() {
       <main className="main-content">
         <Hero />
         <Roadmap />
-        <section id="typing" className="practices">
-          <TypingPractice />
-          <MarkdownPractice />
-        </section>
-        <section id="vim" className="vim-section">
-          <VimPractice />
-        </section>
+        <div id="practices" className="practices-container">
+          <section id="typing" className="practice-section">
+            <TypingPractice />
+          </section>
+          <section id="markdown" className="practice-section">
+            <MarkdownPractice />
+          </section>
+        </div>
       </main>
     </div>
   )

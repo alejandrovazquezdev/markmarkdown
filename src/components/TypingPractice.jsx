@@ -1,117 +1,40 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import anime from 'animejs'
 
-const typingExercises = [
-  { 
-    category: 'markdown-basico',
-    title: 'Encabezados',
-    lines: [
-      '# Titulo Principal',
-      '## Subtitulo',
-      '### Seccion'
-    ],
-    wpm: 45,
-    accuracy: 95
+const exercises = {
+  home: {
+    title: 'Fila de Inicio',
+    text: 'asdf jkl; asdf jkl; asdf jkl; fjdk sla; klas jfds;'
   },
-  { 
-    category: 'markdown-formato',
-    title: 'Formato de Texto',
-    lines: [
-      '**texto en negrita**',
-      '*texto en cursiva*',
-      '~~texto tachado~~'
-    ],
-    wpm: 40,
-    accuracy: 92
+  upper: {
+    title: 'Fila Superior',
+    text: 'qwer tyui op qwer tyui op rewu iopqew rty uio p'
   },
-  { 
-    category: 'markdown-enlaces',
-    title: 'Enlaces',
-    lines: [
-      '[texto del enlace](https://ejemplo.com)',
-      '![alt](imagen.jpg)',
-      '[referencia][ref]'
-    ],
-    wpm: 35,
-    accuracy: 90
+  lower: {
+    title: 'Fila Inferior',
+    text: 'zxcv bn m, zxcv bn m, cxzv bnm ,.zx cvbn m,'
   },
-  { 
-    category: 'markdown-listas',
-    title: 'Listas',
-    lines: [
-      '- Elemento uno',
-      '- Elemento dos',
-      '  - Sub elemento'
-    ],
-    wpm: 50,
-    accuracy: 97
+  numbers: {
+    title: 'Numeros',
+    text: '123 456 789 0 123 456 789 0 135 792 468 0'
   },
-  { 
-    category: 'markdown-codigo',
-    title: 'Bloques de Codigo',
-    lines: [
-      '```javascript',
-      'const x = 1;',
-      '```'
-    ],
-    wpm: 30,
-    accuracy: 88
-  },
-  { 
-    category: 'markdown-tablas',
-    title: 'Tablas',
-    lines: [
-      '| Column1 | Column2 |',
-      '|--------|--------|',
-      '| value  | value  |'
-    ],
-    wpm: 25,
-    accuracy: 85
+  practice: {
+    title: 'Practica Libre',
+    text: 'La practica constante es la clave del exito en mecanografia rapida y precisa.'
   }
-]
-
-function StatDisplay({ value, label, color }) {
-  return (
-    <div className="stat-display" style={{ '--stat-color': color }}>
-      <span className="stat-value">{value}</span>
-      <span className="stat-label">{label}</span>
-    </div>
-  )
-}
-
-function TypingDisplay({ text, currentIndex }) {
-  return (
-    <div className="typing-display">
-      {text.split('').map((char, i) => {
-        let className = 'char'
-        if (i < currentIndex) className += ' correct'
-        else if (i === currentIndex) className += ' current'
-        else if (char === ' ') className += ' space'
-        
-        return (
-          <span key={i} className={className}>
-            {char === ' ' ? '\u00A0' : char}
-          </span>
-        )
-      })}
-    </div>
-  )
 }
 
 function TypingPractice() {
-  const [currentExercise, setCurrentExercise] = useState(0)
-  const [currentLineIndex, setCurrentLineIndex] = useState(0)
-  const [userInput, setUserInput] = useState('')
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [selected, setSelected] = useState('home')
+  const [text, setText] = useState(exercises.home.text)
+  const [input, setInput] = useState('')
   const [startTime, setStartTime] = useState(null)
+  const [endTime, setEndTime] = useState(null)
   const [wpm, setWpm] = useState(0)
   const [accuracy, setAccuracy] = useState(100)
-  const [completed, setCompleted] = useState(false)
-  const [errors, setErrors] = useState(0)
+  const [isComplete, setIsComplete] = useState(false)
   const containerRef = useRef(null)
-
-  const exercise = typingExercises[currentExercise]
-  const currentLine = exercise.lines[currentLineIndex]
+  const inputRef = useRef(null)
 
   useEffect(() => {
     if (containerRef.current) {
@@ -123,90 +46,93 @@ function TypingPractice() {
         easing: 'easeOutExpo'
       })
     }
-  }, [currentExercise])
+  }, [])
 
-  const handleInput = useCallback((e) => {
-    const value = e.target.value
-    
-    if (!startTime) setStartTime(Date.now())
-    
-    if (value.length > currentLine.length) return
-    
-    setUserInput(value)
-    setCurrentIndex(value.length)
-    
-    if (value !== currentLine.substring(0, value.length)) {
-      setErrors(prev => prev + 1)
-      anime({
-        targets: '.typing-display',
-        filter: ['hue-rotate(0deg)', 'hue-rotate(90deg)', 'hue-rotate(0deg)'],
-        duration: 100
-      })
-    }
-    
-    const elapsed = (Date.now() - startTime) / 1000 / 60
-    const words = value.split(' ').length
-    if (elapsed > 0) setWpm(Math.round(words / elapsed))
-    
-    const correctChars = value.split('').filter((c, i) => c === currentLine[i]).length
-    setAccuracy(Math.round((correctChars / value.length) * 100) || 100)
-    
-    if (value === currentLine) {
-      if (currentLineIndex < exercise.lines.length - 1) {
-        setCurrentLineIndex(prev => prev + 1)
-        setUserInput('')
-        setCurrentIndex(0)
-      } else {
-        setCompleted(true)
-        anime({
-          targets: containerRef.current,
-          scale: [1, 1.02, 1],
-          duration: 500,
-          easing: 'easeOutElastic(1, .5)'
-        })
-      }
-    }
-  }, [currentLine, currentLineIndex, exercise.lines.length, startTime])
-
-  const nextExercise = () => {
-    setCurrentExercise(prev => (prev + 1) % typingExercises.length)
-    setCurrentLineIndex(0)
-    setUserInput('')
-    setCurrentIndex(0)
-    setCompleted(false)
-    setErrors(0)
+  const resetExercise = () => {
+    setInput('')
     setStartTime(null)
+    setEndTime(null)
+    setWpm(0)
+    setAccuracy(100)
+    setIsComplete(false)
+    inputRef.current?.focus()
+  }
+
+  const handleSelect = (key) => {
+    setSelected(key)
+    setText(exercises[key].text)
+    resetExercise()
+  }
+
+  const handleInput = (e) => {
+    const val = e.target.value
+    setInput(val)
+
+    if (!startTime && val.length > 0) {
+      setStartTime(Date.now())
+    }
+
+    if (val.length === text.length) {
+      setEndTime(Date.now())
+      setIsComplete(true)
+    }
+
+    if (startTime) {
+      const timeElapsed = (Date.now() - startTime) / 60000
+      const wordsTyped = val.length / 5
+      setWpm(Math.round(wordsTyped / timeElapsed))
+
+      let correct = 0
+      for (let i = 0; i < val.length; i++) {
+        if (val[i] === text[i]) correct++
+      }
+      setAccuracy(Math.round((correct / val.length) * 100))
+    }
+  }
+
+  const renderText = () => {
+    return text.split('').map((char, i) => {
+      let className = 'char'
+      if (i < input.length) {
+        className += input[i] === char ? ' correct' : ' incorrect'
+      } else if (i === input.length) {
+        className += ' current'
+      }
+      if (char === ' ') className += ' space'
+      return <span key={i} className={className}>{char}</span>
+    })
   }
 
   return (
     <div className="typing-practice" ref={containerRef}>
       <div className="section-header">
         <h2>MECANOGRAFIA</h2>
-        <p>Mejora tu velocidad y precision</p>
+        <p>Practica tu velocidad y precision</p>
       </div>
 
       <div className="typing-stats">
-        <StatDisplay value={wpm} label="PPM" color="#00ffff" />
-        <StatDisplay value={`${accuracy}%`} label="Precision" color="#ff00ff" />
-        <StatDisplay value={errors} label="Errores" color="#6600ff" />
+        <div className="stat-display" style={{ '--stat-color': '#00ffff' }}>
+          <span className="stat-value">{wpm}</span>
+          <span className="stat-label">PPM</span>
+        </div>
+        <div className="stat-display" style={{ '--stat-color': accuracy >= 95 ? '#00ff88' : accuracy >= 80 ? '#ffaa00' : '#ff4444' }}>
+          <span className="stat-value">{accuracy}%</span>
+          <span className="stat-label">Precision</span>
+        </div>
+        <div className="stat-display" style={{ '--stat-color': '#ff00ff' }}>
+          <span className="stat-value">{input.length}/{text.length}</span>
+          <span className="stat-label">Progreso</span>
+        </div>
       </div>
 
       <div className="exercise-selector">
-        {typingExercises.map((ex, idx) => (
+        {Object.entries(exercises).map(([key, ex]) => (
           <button
-            key={idx}
-            className={`exercise-tab ${currentExercise === idx ? 'active' : ''}`}
-            onClick={() => {
-              setCurrentExercise(idx)
-              setCurrentLineIndex(0)
-              setUserInput('')
-              setCurrentIndex(0)
-              setCompleted(false)
-              setErrors(0)
-              setStartTime(null)
-            }}
+            key={key}
+            className={`exercise-tab ${selected === key ? 'active' : ''}`}
+            onClick={() => handleSelect(key)}
           >
-            <span className="tab-number">{String(idx + 1).padStart(2, '0')}</span>
+            <span className="tab-number">{key === 'home' ? '01' : key === 'upper' ? '02' : key === 'lower' ? '03' : key === 'numbers' ? '04' : '05'}</span>
             <span className="tab-title">{ex.title}</span>
           </button>
         ))}
@@ -214,33 +140,36 @@ function TypingPractice() {
 
       <div className="typing-container">
         <div className="exercise-info">
-          <span className="category">{exercise.category}</span>
-          <span className="title">{exercise.title}</span>
+          <span className="category">{exercises[selected].title}</span>
         </div>
-
-        <TypingDisplay text={currentLine} currentIndex={currentIndex} />
-
+        
+        <div className="typing-display" onClick={() => inputRef.current?.focus()}>
+          {renderText()}
+        </div>
+        
         <textarea
-          value={userInput}
+          ref={inputRef}
+          value={input}
           onChange={handleInput}
           className="typing-input"
-          placeholder="Escribe aqui para practicar..."
+          placeholder="Comienza a escribir..."
+          disabled={isComplete}
           autoFocus
-          disabled={completed}
         />
 
-        {completed && (
+        {isComplete && (
           <div className="completion-overlay">
             <div className="completion-content">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="check-icon">
+              <svg className="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M20 6L9 17l-5-5"/>
               </svg>
-              <h3>Ejercicio Completado</h3>
-              <p>PPM: {wpm} | Precision: {accuracy}%</p>
-              <button className="next-btn" onClick={nextExercise}>
-                Siguiente Ejercicio
+              <h3>Completado!</h3>
+              <p>{wpm} PPM con {accuracy}% de precision</p>
+              <button className="next-btn" onClick={resetExercise}>
+                <span>Repetir</span>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                  <path d="M1 4v6h6M23 20v-6h-6"/>
+                  <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
                 </svg>
               </button>
             </div>

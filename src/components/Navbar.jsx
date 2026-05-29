@@ -37,10 +37,9 @@ function Navbar() {
 
         <div className={`nav-links ${mobileMenuOpen ? 'open' : ''}`}>
           <a href="#hero" className="nav-link">Inicio</a>
-          <a href="#roadmap" className="nav-link">Roadmap</a>
           <a href="#typing" className="nav-link">Mecanografia</a>
           <a href="#markdown" className="nav-link">Markdown</a>
-          <a href="#vim" className="nav-link">Vim</a>
+          <a href="#roadmap" className="nav-link">Progreso</a>
         </div>
       </div>
     </nav>

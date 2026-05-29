@@ -12,13 +12,13 @@ const roadmapSections = [
       </svg>
     ),
     items: [
-      { text: 'Postura y posicion de manos', completed: false },
-      { text: 'Fila inicio: asdf jkl', completed: false },
+      { text: 'Postura y posicion de manos', completed: true },
+      { text: 'Fila inicio: asdf jkl', completed: true },
       { text: 'Fila superior: qwer uio', completed: false },
       { text: 'Fila inferior: zxcv m,.', completed: false },
       { text: 'Numeros y simbolos', completed: false },
       { text: 'Practica de velocidad', completed: false },
-      { text: 'Practica de precision', completed: false }
+      { text: 'Precision y consistencia', completed: false }
     ],
     color: '#00ffff'
   },
@@ -33,37 +33,15 @@ const roadmapSections = [
       </svg>
     ),
     items: [
-      { text: 'Encabezados', completed: false },
-      { text: 'Formato de texto', completed: false },
+      { text: 'Encabezados', completed: true },
+      { text: 'Formato de texto', completed: true },
       { text: 'Enlaces e imagenes', completed: false },
       { text: 'Listas', completed: false },
       { text: 'Tablas', completed: false },
       { text: 'Codigo inline y bloques', completed: false },
-      { text: 'GMF extensions', completed: false }
+      { text: 'Extensiones GFM', completed: false }
     ],
     color: '#ff00ff'
-  },
-  {
-    id: 'vim',
-    title: 'VIM',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M12 3l9 4.5v9L12 21l-9-4.5v-9L12 3z"/>
-        <path d="M12 12l9-4.5"/>
-        <path d="M12 12v9"/>
-        <path d="M12 12L3 7.5"/>
-      </svg>
-    ),
-    items: [
-      { text: 'Modos: normal, insert, visual', completed: false },
-      { text: 'Movimiento: h,j,k,l,w,b', completed: false },
-      { text: 'Edicion: i,a,x,r,d,y,p', completed: false },
-      { text: 'Busqueda: /,n,N', completed: false },
-      { text: 'Comandos: :,w,q', completed: false },
-      { text: 'Registers y macros', completed: false },
-      { text: 'Plugins esenciales', completed: false }
-    ],
-    color: '#6600ff'
   }
 ]
 
@@ -88,7 +66,7 @@ function Roadmap() {
         targets: '.roadmap-card',
         opacity: [0, 1],
         translateY: [50, 0],
-        delay: anime.stagger(100),
+        delay: anime.stagger(150),
         duration: 800,
         easing: 'easeOutExpo'
       })
@@ -102,12 +80,12 @@ function Roadmap() {
   return (
     <section id="roadmap" className="roadmap">
       <div className="roadmap-header">
-        <h2>Tu Camino de Aprendizaje</h2>
-        <p>Domina cada habilidad paso a paso</p>
+        <h2>Tu Progreso</h2>
+        <p>Rastrea tu aprendizaje en mecanografia y markdown</p>
       </div>
       
       <div className="roadmap-grid" ref={containerRef}>
-        {roadmapSections.map((section, idx) => (
+        {roadmapSections.map((section) => (
           <div
             key={section.id}
             className={`roadmap-card ${hoveredCard === section.id ? 'hovered' : ''}`}
@@ -146,7 +124,7 @@ function Roadmap() {
             </ul>
             
             <a href={`#${section.id}`} className="card-action">
-              <span>Comenzar</span>
+              <span>Practicar</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
               </svg>
