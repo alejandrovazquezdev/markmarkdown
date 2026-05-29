@@ -1,42 +1,167 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import Scene3D from './components/Scene3D'
 import TypingPractice from './components/TypingPractice'
 import MarkdownPractice from './components/MarkdownPractice'
 import Roadmap from './components/Roadmap'
 import Navbar from './components/Navbar'
+import VimPractice from './components/VimPractice'
 import './styles/App.css'
 
-function App() {
-  const appRef = useRef(null)
+function GlitchText({ text }) {
+  const [displayText, setDisplayText] = useState('')
+  const [isGlitching, setIsGlitching] = useState(false)
+
+  useEffect(() => {
+    let currentIndex = 0
+    const interval = setInterval(() => {
+      if (currentIndex < text.length) {
+        setDisplayText(text.slice(0, currentIndex + 1))
+        currentIndex++
+      } else {
+        clearInterval(interval)
+        setTimeout(() => setIsGlitching(true), 2000)
+      }
+    }, 150)
+
+    return () => clearInterval(interval)
+  }, [text])
+
+  useEffect(() => {
+    if (isGlitching) {
+      const interval = setInterval(() => {
+        setDisplayText(prev => {
+          const glitchChars = '!@#$%^&*()_+-=[]{}|;:,.<>?/~`'
+          let result = ''
+          for (let i = 0; i < text.length; i++) {
+            if (Math.random() > 0.9) {
+              result += glitchChars[Math.floor(Math.random() * glitchChars.length)]
+            } else {
+              result += text[i]
+            }
+          }
+          return result
+        })
+        setTimeout(() => setDisplayText(text), 50)
+      }, 100)
+
+      return () => clearInterval(interval)
+    }
+  }, [isGlitching, text])
+
+  return <span className="glitch-text">{displayText}</span>
+}
+
+function TypewriterText({ texts, speed = 50 }) {
+  const [currentTextIndex, setCurrentTextIndex] = useState(0)
+  const [currentText, setCurrentText] = useState('')
+  const [isDeleting, setIsDeleting] = useState(false)
+
+  useEffect(() => {
+    const currentFullText = texts[currentTextIndex]
+    
+    if (!isDeleting && currentText.length < currentFullText.length) {
+      const timeout = setTimeout(() => {
+        setCurrentText(currentFullText.slice(0, currentText.length + 1))
+      }, speed)
+      return () => clearTimeout(timeout)
+    } else if (isDeleting && currentText.length > 0) {
+      const timeout = setTimeout(() => {
+        setCurrentText(currentText.slice(0, -1))
+      }, speed / 2)
+      return () => clearTimeout(timeout)
+    } else if (!isDeleting && currentText.length === currentFullText.length) {
+      setTimeout(() => setIsDeleting(true), 2000)
+    } else if (isDeleting && currentText.length === 0) {
+      setIsDeleting(false)
+      setCurrentTextIndex((prev) => (prev + 1) % texts.length)
+    }
+  }, [currentText, isDeleting, currentTextIndex, texts, speed])
+
+  return (
+    <span className="typewriter">
+      {currentText}
+      <span className="cursor">|</span>
+    </span>
+  )
+}
+
+function Hero() {
+  const heroRef = useRef(null)
 
   useEffect(() => {
     import('animejs').then(({ default: anime }) => {
-      anime({
-        targets: '.hero-title',
-        opacity: [0, 1],
-        translateY: [50, 0],
-        duration: 1500,
-        easing: 'easeOutExpo'
-      })
+      const timeline = anime.timeline({ easing: 'easeOutExpo' })
+      
+      timeline
+        .add({
+          targets: '.hero-subtitle',
+          opacity: [0, 1],
+          translateY: [30, 0],
+          duration: 1500,
+          delay: 500
+        })
+        .add({
+          targets: '.hero-cta',
+          opacity: [0, 1],
+          translateY: [20, 0],
+          duration: 1000
+        }, '-=500')
     })
   }, [])
 
   return (
-    <div ref={appRef} className="app">
-      <Canvas className="bg-canvas">
+    <section id="hero" className="hero" ref={heroRef}>
+      <div className="hero-content">
+        <h1 className="hero-title">
+          <GlitchText text="markmarkdown" />
+        </h1>
+        <p className="hero-subtitle">
+          <TypewriterText 
+            texts={[
+              'Practica mecanografia como un hacker',
+              'Domina el markdown con estilo',
+              'Conquista vim como un ninja'
+            ]} 
+          />
+        </p>
+        <div className="hero-cta">
+          <a href="#roadmap" className="cta-button primary">
+            <span>Explorar Roadmap</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+          <a href="#typing" className="cta-button secondary">
+            <span>Comenzar Practica</span>
+          </a>
+        </div>
+      </div>
+      <div className="hero-decoration">
+        <div className="deco-ring ring-1"></div>
+        <div className="deco-ring ring-2"></div>
+        <div className="deco-ring ring-3"></div>
+      </div>
+    </section>
+  )
+}
+
+function App() {
+  return (
+    <div className="app">
+      <Canvas className="bg-canvas" camera={{ position: [0, 0, 30], fov: 60 }}>
         <Scene3D />
       </Canvas>
       <Navbar />
       <main className="main-content">
-        <section className="hero">
-          <h1 className="hero-title">markmarkdown</h1>
-          <p className="hero-subtitle">Practica mecanografia, markdown y vim</p>
-        </section>
+        <Hero />
         <Roadmap />
-        <section className="practices">
+        <section id="typing" className="practices">
           <TypingPractice />
           <MarkdownPractice />
+        </section>
+        <section id="vim" className="vim-section">
+          <VimPractice />
         </section>
       </main>
     </div>
