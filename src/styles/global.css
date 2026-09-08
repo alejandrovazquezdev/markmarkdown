@@ -567,6 +567,118 @@ body {
   margin: 1.5rem 0;
 }
 
+/* --- Preview fiel: frontmatter, mermaid, footnotes, math, HTML inline --- */
+
+.md-frontmatter {
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 159, 67, 0.05);
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.md-frontmatter-label,
+.md-mermaid-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--terminal-amber);
+  padding: 0.4rem 0.8rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.md-frontmatter pre {
+  margin: 0;
+  border: none;
+  background: transparent;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.md-mermaid {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: rgba(196, 77, 255, 0.05);
+  margin: 1rem 0;
+  overflow: hidden;
+}
+
+.md-mermaid pre {
+  margin: 0;
+  border: none;
+  background: transparent;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.fn-ref {
+  color: var(--terminal-green);
+  font-size: 0.75em;
+}
+
+.fn-def {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.markdown-preview kbd {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  padding: 0.1rem 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+  color: var(--text-primary);
+}
+
+.markdown-preview mark {
+  background: rgba(0, 255, 157, 0.22);
+  color: var(--text-primary);
+  padding: 0.05rem 0.25rem;
+  border-radius: 3px;
+}
+
+.markdown-preview details {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.9rem;
+  margin: 1rem 0;
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.markdown-preview summary {
+  cursor: pointer;
+  color: var(--terminal-green);
+  font-weight: 600;
+}
+
+.markdown-preview input[type='checkbox'] {
+  accent-color: var(--terminal-green);
+  width: 0.95rem;
+  height: 0.95rem;
+  vertical-align: -0.15em;
+}
+
+.markdown-preview .katex {
+  color: var(--text-primary);
+  font-size: 1.02em;
+}
+
+.markdown-preview .katex-display {
+  overflow-x: auto;
+  padding: 0.4rem 0;
+}
+
+.route-loading {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--terminal-green);
+  font-family: var(--font-mono);
+}
+
 /* LEVEL NAVIGATION */
 .level-navigation {
   display: flex;

@@ -165,10 +165,6 @@ function AmbientGlow() {
   )
 }
 
-function Scanlines() {
-  return null
-}
-
 export default function Scene3D() {
   return (
     <>

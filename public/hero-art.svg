@@ -1,0 +1,323 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="720" viewBox="0 0 960 720" fill="none" role="img" aria-labelledby="hero-title">
+  <title id="hero-title">markmarkdown</title>
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="42%" r="58%">
+      <stop offset="0%" stop-color="#00ff9d" stop-opacity="0.18"/>
+      <stop offset="42%" stop-color="#00ff9d" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#00ff9d" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vignette" cx="50%" cy="45%" r="72%">
+      <stop offset="55%" stop-color="#0a0a0a" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#0a0a0a" stop-opacity="0.72"/>
+    </radialGradient>
+    <linearGradient id="floor-fade" x1="0" y1="520" x2="0" y2="720" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#00ff9d" stop-opacity="0"/>
+      <stop offset="35%" stop-color="#00ff9d" stop-opacity="0.09"/>
+      <stop offset="100%" stop-color="#00ff9d" stop-opacity="0.02"/>
+    </linearGradient>
+    <radialGradient id="grid-mask-grad" cx="50%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="white" stop-opacity="1"/>
+      <stop offset="55%" stop-color="white" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="white" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="grid-mask">
+      <rect width="960" height="720" fill="url(#grid-mask-grad)"/>
+    </mask>
+    <clipPath id="floor-clip">
+      <rect x="0" y="548" width="960" height="172"/>
+    </clipPath>
+    <pattern id="scan" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="4" height="1" fill="#00ff9d" fill-opacity="0.035"/>
+    </pattern>
+    <filter id="bloom" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="2.4" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="bloom-strong" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="4.2" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="soft-shadow" x="-20%" y="-10%" width="140%" height="160%">
+      <feOffset dy="7" result="o"/>
+      <feGaussianBlur in="o" stdDeviation="4" result="s"/>
+      <feColorMatrix in="s" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- mechanical keycap, 88×82 -->
+    <g id="cap">
+      <ellipse cx="44" cy="80" rx="30" ry="5.5" fill="#000" fill-opacity="0.5"/>
+      <path d="M8 62h72v8c0 6.6-5.4 12-12 12H20C13.4 82 8 76.6 8 70z" fill="#0c0c0c"/>
+      <path d="M8 62h72v3.5H8z" fill="#00ff9d" fill-opacity="0.07"/>
+      <rect x="8" y="6" width="72" height="58" rx="11" fill="#131313" stroke="#00ff9d" stroke-width="1.45" stroke-opacity="0.48"/>
+      <rect x="16" y="13" width="56" height="44" rx="8" fill="#0a0a0a" stroke="#00ff9d" stroke-width="0.7" stroke-opacity="0.14"/>
+      <path d="M20 16.5h48" stroke="#00ff9d" stroke-opacity="0.1" stroke-width="2" stroke-linecap="round"/>
+    </g>
+    <g id="cap-dim">
+      <ellipse cx="44" cy="80" rx="28" ry="5" fill="#000" fill-opacity="0.35"/>
+      <path d="M8 62h72v8c0 6.6-5.4 12-12 12H20C13.4 82 8 76.6 8 70z" fill="#0b0b0b"/>
+      <rect x="8" y="6" width="72" height="58" rx="11" fill="#101010" stroke="#00ff9d" stroke-width="1.2" stroke-opacity="0.18"/>
+      <rect x="16" y="13" width="56" height="44" rx="8" fill="#0a0a0a" stroke="#00ff9d" stroke-width="0.6" stroke-opacity="0.07"/>
+    </g>
+    <g id="cap-wide">
+      <ellipse cx="98" cy="76" rx="70" ry="6" fill="#000" fill-opacity="0.45"/>
+      <path d="M8 56h180v8c0 6.6-5.4 12-12 12H20C13.4 76 8 70.6 8 64z" fill="#0c0c0c"/>
+      <path d="M8 56h180v3.5H8z" fill="#00ff9d" fill-opacity="0.07"/>
+      <rect x="8" y="6" width="180" height="52" rx="11" fill="#131313" stroke="#00ff9d" stroke-width="1.45" stroke-opacity="0.42"/>
+      <rect x="16" y="13" width="164" height="38" rx="8" fill="#0a0a0a" stroke="#00ff9d" stroke-width="0.7" stroke-opacity="0.12"/>
+    </g>
+    <g id="cap-mini">
+      <ellipse cx="27" cy="50" rx="18" ry="3.5" fill="#000" fill-opacity="0.4"/>
+      <path d="M5 38h44v5c0 4-3.2 7.5-7.2 7.5H12.2C8.2 50.5 5 47 5 43z" fill="#0c0c0c"/>
+      <rect x="5" y="4" width="44" height="36" rx="8" fill="#121212" stroke="#00ff9d" stroke-width="1.1" stroke-opacity="0.28"/>
+      <rect x="10" y="8.5" width="34" height="27" rx="6" fill="#0a0a0a" stroke="#00ff9d" stroke-width="0.5" stroke-opacity="0.1"/>
+    </g>
+
+    <!-- geometric markdown glyphs, 48×48 -->
+    <g id="g-hash" stroke="#00ff9d" stroke-width="2.6" stroke-linecap="round">
+      <path d="M12 18h26M10 30h26M20 10l-4 28M32 10l-4 28"/>
+    </g>
+    <g id="g-star" stroke="#00ff9d" stroke-width="2.6" stroke-linecap="round">
+      <path d="M24 8v32M10.1 16l27.8 16M37.9 16L10.1 32"/>
+    </g>
+    <g id="g-pipe" stroke="#00ff9d" stroke-width="3.1" stroke-linecap="round">
+      <path d="M24 10v28"/>
+      <path d="M19 10h10M19 38h10" stroke-width="2"/>
+    </g>
+    <g id="g-gt" stroke="#00ff9d" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M15 12l20 12-20 12"/>
+    </g>
+    <g id="g-tick" stroke="#00ff9d" stroke-width="3" stroke-linecap="round" fill="none">
+      <path d="M16 13c7 1 12 5 16 12"/>
+    </g>
+    <g id="g-dollar" stroke="#00ff9d" stroke-width="2.6" stroke-linecap="round" fill="none">
+      <path d="M24 8v32"/>
+      <path d="M33.5 16.5c0-4.6-4.2-7-9.5-7s-9.5 2.6-9.5 6.6c0 7.6 19 5.4 19 13.4 0 4.2-4.2 7-9.5 7s-9.5-2.8-9.5-6.8"/>
+    </g>
+    <g id="g-dash" fill="#00ff9d">
+      <rect x="11" y="21.2" width="26" height="5.6" rx="2.8"/>
+    </g>
+    <g id="g-pip" fill="#00ff9d">
+      <rect x="21" y="21" width="6" height="6" rx="1.2" fill-opacity="0.7"/>
+    </g>
+  </defs>
+
+  <!-- ground -->
+  <rect width="960" height="720" fill="#0a0a0a"/>
+  <rect width="960" height="720" fill="url(#glow)"/>
+
+  <!-- HUD grid -->
+  <g mask="url(#grid-mask)" stroke="#00ff9d" stroke-width="1" stroke-opacity="0.07">
+    <path d="M0 40h960M0 80h960M0 120h960M0 160h960M0 200h960M0 240h960M0 280h960M0 320h960M0 360h960M0 400h960M0 440h960M0 480h960M0 520h960M0 560h960M0 600h960M0 640h960M0 680h960"/>
+    <path d="M40 0v720M80 0v720M120 0v720M160 0v720M200 0v720M240 0v720M280 0v720M320 0v720M360 0v720M400 0v720M440 0v720M480 0v720M520 0v720M560 0v720M600 0v720M640 0v720M680 0v720M720 0v720M760 0v720M800 0v720M840 0v720M880 0v720M920 0v720"/>
+  </g>
+
+  <!-- perspective floor -->
+  <g clip-path="url(#floor-clip)" stroke="url(#floor-fade)" stroke-width="1" fill="none">
+    <path d="M0 720L480 200M80 720L480 200M160 720L480 200M240 720L480 200M320 720L480 200M400 720L480 200M480 720L480 200M560 720L480 200M640 720L480 200M720 720L480 200M800 720L480 200M880 720L480 200M960 720L480 200"/>
+    <path d="M-40 560h1040M-80 590h1120M-140 630h1240M-220 680h1400M-320 720h1600" stroke="#00ff9d" stroke-opacity="0.06"/>
+  </g>
+
+  <!-- orbit rings -->
+  <g fill="none" stroke="#00ff9d">
+    <ellipse cx="480" cy="338" rx="268" ry="196" stroke-opacity="0.1" stroke-dasharray="3 11"/>
+    <ellipse cx="480" cy="338" rx="348" ry="254" stroke-opacity="0.06" stroke-dasharray="1 13"/>
+    <circle cx="480" cy="338" r="6" stroke-opacity="0.22" stroke-width="1.2"/>
+    <circle cx="480" cy="338" r="1.6" fill="#00ff9d" fill-opacity="0.45" stroke="none"/>
+  </g>
+
+  <!-- constellation guides -->
+  <g stroke="#00ff9d" stroke-width="1" stroke-opacity="0.13" stroke-dasharray="2 8" fill="none">
+    <path d="M344 230L436 278L590 214"/>
+    <path d="M292 380L436 310L668 372"/>
+    <path d="M292 380L400 538L560 470L668 372"/>
+    <path d="M184 176L344 230"/>
+    <path d="M590 214L804 156"/>
+    <path d="M668 372L820 458"/>
+  </g>
+
+  <!-- HUD corners -->
+  <g stroke="#00ff9d" stroke-width="1.4" stroke-linecap="square" stroke-opacity="0.35">
+    <path d="M28 28h36M28 28v36"/>
+    <path d="M932 28h-36M932 28v36"/>
+    <path d="M28 692h36M28 692v-36"/>
+    <path d="M932 692h-36M932 692v-36"/>
+  </g>
+  <g stroke="#00ff9d" stroke-width="1" stroke-opacity="0.16">
+    <path d="M78 28h18M28 78v18"/>
+    <path d="M882 28h-18M932 78v18"/>
+    <path d="M78 692h18M28 642v-18"/>
+    <path d="M882 692h-18M932 642v-18"/>
+  </g>
+
+  <!-- phosphor dust -->
+  <g fill="#00ff9d">
+    <circle cx="214" cy="118" r="1.2" fill-opacity="0.35"/>
+    <circle cx="268" cy="96" r="0.8" fill-opacity="0.22"/>
+    <circle cx="402" cy="84" r="1.1" fill-opacity="0.28"/>
+    <circle cx="548" cy="72" r="0.9" fill-opacity="0.2"/>
+    <circle cx="706" cy="108" r="1.3" fill-opacity="0.32"/>
+    <circle cx="842" cy="94" r="0.8" fill-opacity="0.18"/>
+    <circle cx="88" cy="250" r="1" fill-opacity="0.24"/>
+    <circle cx="96" cy="410" r="1.2" fill-opacity="0.3"/>
+    <circle cx="870" cy="220" r="1.1" fill-opacity="0.26"/>
+    <circle cx="900" cy="540" r="0.9" fill-opacity="0.2"/>
+    <circle cx="130" cy="620" r="1" fill-opacity="0.22"/>
+    <circle cx="760" cy="640" r="1.2" fill-opacity="0.28"/>
+    <circle cx="490" cy="198" r="1.4" fill-opacity="0.4"/>
+    <circle cx="610" cy="510" r="1" fill-opacity="0.25"/>
+  </g>
+
+  <!-- floating keys (back / dim) -->
+  <g opacity="0.55" filter="url(#soft-shadow)">
+    <g transform="translate(118,132) rotate(-18 44 40) scale(0.62)">
+      <use href="#cap-dim"/>
+      <use href="#g-hash" x="20" y="14" opacity="0.55"/>
+    </g>
+    <g transform="translate(778,108) rotate(20 44 40) scale(0.56)">
+      <use href="#cap-dim"/>
+      <use href="#g-star" x="20" y="14" opacity="0.5"/>
+    </g>
+    <g transform="translate(78,452) rotate(-10 44 40) scale(0.64)">
+      <use href="#cap-dim"/>
+      <use href="#g-gt" x="20" y="14" opacity="0.5"/>
+    </g>
+    <g transform="translate(798,418) rotate(14 44 40) scale(0.58)">
+      <use href="#cap-dim"/>
+      <use href="#g-pipe" x="20" y="14" opacity="0.5"/>
+    </g>
+    <g transform="translate(148,268) rotate(16 44 40) scale(0.48)">
+      <use href="#cap-dim"/>
+      <use href="#g-dash" x="20" y="14" opacity="0.45"/>
+    </g>
+    <g transform="translate(708,238) rotate(-16 44 40) scale(0.5)">
+      <use href="#cap-dim"/>
+      <use href="#g-dollar" x="20" y="14" opacity="0.5"/>
+    </g>
+    <g transform="translate(848,308) rotate(7 27 24) scale(0.92)">
+      <use href="#cap-mini"/>
+      <use href="#g-tick" transform="translate(2,-2) scale(0.52)"/>
+    </g>
+    <g transform="translate(58,318) rotate(-22 27 24)">
+      <use href="#cap-mini"/>
+      <use href="#g-star" transform="translate(2,-2) scale(0.52)" opacity="0.55"/>
+    </g>
+    <g transform="translate(468,108) rotate(8 27 24) scale(0.86)">
+      <use href="#cap-mini"/>
+      <use href="#g-hash" transform="translate(2,-2) scale(0.52)" opacity="0.45"/>
+    </g>
+    <g transform="translate(718,548) rotate(-18 44 40) scale(0.5)">
+      <use href="#cap-dim"/>
+      <use href="#g-dash" x="20" y="14" opacity="0.4"/>
+    </g>
+  </g>
+
+  <!-- unmarked depth keys -->
+  <g opacity="0.4" filter="url(#soft-shadow)">
+    <g transform="translate(372,372) rotate(-4 27 24) scale(1.05)">
+      <use href="#cap-mini"/>
+      <use href="#g-pip" transform="translate(2,-2) scale(0.52)"/>
+    </g>
+    <g transform="translate(442,382) rotate(3 27 24)">
+      <use href="#cap-mini"/>
+      <use href="#g-pip" transform="translate(2,-2) scale(0.52)"/>
+    </g>
+    <g transform="translate(508,368) rotate(-7 27 24) scale(0.92)">
+      <use href="#cap-mini"/>
+      <use href="#g-pip" transform="translate(2,-2) scale(0.52)"/>
+    </g>
+  </g>
+
+  <!-- primary cluster -->
+  <g filter="url(#soft-shadow)">
+    <!-- > -->
+    <g transform="translate(292,168) rotate(-12 44 40)">
+      <use href="#cap"/>
+      <g filter="url(#bloom)" transform="translate(20,12)">
+        <use href="#g-gt"/>
+        <circle cx="15" cy="12" r="1.5" fill="#00ff9d"/>
+        <circle cx="35" cy="24" r="1.5" fill="#00ff9d"/>
+        <circle cx="15" cy="36" r="1.5" fill="#00ff9d"/>
+      </g>
+    </g>
+
+    <!-- * -->
+    <g transform="translate(568,154) rotate(8 44 40)">
+      <use href="#cap"/>
+      <g filter="url(#bloom)" transform="translate(20,12)">
+        <use href="#g-star"/>
+        <circle cx="24" cy="24" r="2.1" fill="#00ff9d"/>
+      </g>
+    </g>
+
+    <!-- ` -->
+    <g transform="translate(236,332) rotate(11 44 40) scale(0.92)">
+      <use href="#cap"/>
+      <g filter="url(#bloom)" transform="translate(20,12)">
+        <use href="#g-tick"/>
+        <circle cx="16" cy="13" r="1.5" fill="#00ff9d"/>
+        <circle cx="32" cy="25" r="1.5" fill="#00ff9d"/>
+      </g>
+    </g>
+
+    <!-- | -->
+    <g transform="translate(636,318) rotate(3 44 40)">
+      <use href="#cap"/>
+      <g filter="url(#bloom)" transform="translate(20,12)">
+        <use href="#g-pipe"/>
+      </g>
+    </g>
+
+    <!-- $ -->
+    <g transform="translate(528,418) rotate(-6 44 40)">
+      <use href="#cap"/>
+      <g filter="url(#bloom)" transform="translate(20,12)">
+        <use href="#g-dollar"/>
+      </g>
+    </g>
+
+    <!-- spacebar - -->
+    <g transform="translate(332,508) rotate(3.5 98 38)">
+      <use href="#cap-wide"/>
+      <g filter="url(#bloom)" transform="translate(74,8)">
+        <use href="#g-dash"/>
+      </g>
+    </g>
+
+    <!-- hero # -->
+    <g transform="translate(416,238) rotate(-5 44 40) scale(1.16)">
+      <use href="#cap"/>
+      <g filter="url(#bloom-strong)" transform="translate(20,12)">
+        <use href="#g-hash"/>
+        <circle cx="12" cy="18" r="1.4" fill="#00ff9d"/>
+        <circle cx="38" cy="18" r="1.4" fill="#00ff9d"/>
+        <circle cx="10" cy="30" r="1.4" fill="#00ff9d"/>
+        <circle cx="36" cy="30" r="1.4" fill="#00ff9d"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- stray geometric fragments -->
+  <g stroke="#00ff9d" fill="none" stroke-linecap="round" opacity="0.35">
+    <path d="M196 210l10 6" stroke-width="1.6"/>
+    <path d="M742 204l-8 9" stroke-width="1.6"/>
+    <path d="M880 400v16" stroke-width="1.4"/>
+    <rect x="108" y="168" width="7" height="7" rx="1" stroke-opacity="0.7"/>
+    <path d="M820 580l12 0" stroke-width="2"/>
+    <path d="M400 160l0 12M394 166h12" stroke-width="1.2" stroke-opacity="0.8"/>
+  </g>
+
+  <rect width="960" height="720" fill="url(#scan)"/>
+  <rect width="960" height="720" fill="url(#vignette)"/>
+
+  <text x="480" y="686" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="11" letter-spacing="0.42em" fill="#00ff9d" fill-opacity="0.42">markmarkdown</text>
+</svg>

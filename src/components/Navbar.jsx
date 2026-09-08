@@ -1,21 +1,22 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
-function Navbar({ lang, onToggleLang }) {
+function Navbar({ lang, onToggleLang, variant = 'trainer', strings }) {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
     }
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="nav-container">
-        <a href="/" className="nav-logo">
-          <svg viewBox="0 0 32 32" className="logo-icon" fill="none">
+        <Link to={variant === 'landing' ? '/' : '/app'} className="nav-logo" aria-label="markmarkdown">
+          <svg viewBox="0 0 32 32" className="logo-icon" fill="none" aria-hidden="true">
             <rect x="2" y="6" width="28" height="20" rx="2" stroke="#00ff9d" strokeWidth="1.5"/>
             <path d="M10 12L6 16L10 20" stroke="#00ff9d" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             <path d="M22 12L26 16L22 20" stroke="#00ff9d" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -25,11 +26,23 @@ function Navbar({ lang, onToggleLang }) {
             markmarkdown
             <span className="cursor"></span>
           </span>
-        </a>
+        </Link>
 
         <div className="nav-info">
-          <span className="nav-label">// curriculum</span>
-          <button className="lang-toggle" onClick={onToggleLang}>
+          {variant === 'landing' && strings ? (
+            <>
+              <a className="nav-link" href="#demo">{strings.navDemo}</a>
+              <a className="nav-link" href="#como">{strings.navHow}</a>
+              <a className="nav-link" href="#curriculo">{strings.navCurriculum}</a>
+              <Link className="nav-cta" to="/app">{strings.navCta}</Link>
+            </>
+          ) : (
+            <>
+              <Link className="nav-link" to="/">← markmarkdown</Link>
+              <span className="nav-label">// curriculum</span>
+            </>
+          )}
+          <button className="lang-toggle" onClick={onToggleLang} aria-label="toggle language">
             {lang === 'en' ? 'ES' : 'EN'}
           </button>
         </div>

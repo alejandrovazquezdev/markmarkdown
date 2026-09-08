@@ -384,7 +384,7 @@ export const curriculum = {
           id: 'task-advanced',
           content: {
             en: '- [x] Phase 1: Planning\n  - [x] Create documentation\n  - [x] Design architecture\n- [ ] Phase 2: Development\n  - [ ] Implement API\n  - [ ] Create frontend\n  - [ ] Write tests\n- [ ] Phase 3: Deployment',
-            es: '- [x] Fase 1: Planejamento\n  - [x] Crear documentacion\n  - [x] Disenar arquitectura\n- [ ] Fase 2: Desarrollo\n  - [ ] Implementar API\n  - [ ] Crear frontend\n  - [ ] Escribir tests\n- [ ] Fase 3: Despliegue'
+            es: '- [x] Fase 1: Planificacion\n  - [x] Crear documentacion\n  - [x] Disenar arquitectura\n- [ ] Fase 2: Desarrollo\n  - [ ] Implementar API\n  - [ ] Crear frontend\n  - [ ] Escribir tests\n- [ ] Fase 3: Despliegue'
           },
           focus: {
             en: 'Task hierarchy',
