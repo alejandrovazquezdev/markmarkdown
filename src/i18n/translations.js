@@ -64,6 +64,7 @@ export const translations = {
     avanzado: 'Advanced',
     master: 'Master',
     profesional: 'Professional',
+    obsidian: 'Obsidian',
 
     // Guide Modal Close
     close: 'x',
@@ -74,6 +75,7 @@ export const translations = {
     avanzadoDesc: 'Master markdown like a pro',
     masterDesc: 'Complete real projects',
     profesionalDesc: 'Markdown for the real world',
+    obsidianDesc: 'Link notes like a second brain',
 
     // Level descriptions
     headersDesc: 'The structure of every document',
@@ -110,6 +112,12 @@ export const translations = {
     tableAdvancedDesc: 'Alignment and extensions',
     taskAdvancedDesc: 'Projects with subtasks',
     comparisonDesc: 'Pros and cons tables',
+    wikilinksDesc: 'Link notes together',
+    imageEmbedDesc: 'Show an image with flair',
+    imageSizeDesc: 'Resize with animation',
+    noteEmbedDesc: 'Quote another note live',
+    linkAliasDesc: 'Names and anchors',
+    graphLinksDesc: 'Watch them connect',
 
     // Focus hints
     topRowKeys: 'Top row keys',
@@ -146,6 +154,7 @@ export const translations = {
     alignmentAndExtensions: 'Alignment and extensions',
     taskHierarchy: 'Task hierarchy',
     emojisInTables: 'Emojis in tables',
+    newBadge: 'new',
 
     // Level titles
     headers: 'Headers',
@@ -182,6 +191,12 @@ export const translations = {
     tableAdvanced: 'Advanced Tables',
     taskAdvanced: 'Nested Tasks',
     comparison: 'Comparison Tables',
+    wikilinks: 'Wikilinks',
+    imageEmbed: 'Embedded images',
+    imageSize: 'Smooth resize',
+    noteEmbed: 'Embedded notes',
+    linkAlias: 'Alias and headings',
+    graphLinks: 'Graph view',
 
     // Language
     language: 'Language',
@@ -253,6 +268,7 @@ export const translations = {
     avanzado: 'Avanzado',
     master: 'Master',
     profesional: 'Profesional',
+    obsidian: 'Obsidian',
 
     // Guide descriptions
     fundamentosDesc: 'Aprende la estructura basica de markdown mientras practicas mecanografia',
@@ -260,6 +276,7 @@ export const translations = {
     avanzadoDesc: 'Domina markdown como un pro',
     masterDesc: 'Proyectos reales completos',
     profesionalDesc: 'Markdown para el mundo real',
+    obsidianDesc: 'Enlaza notas como segundo cerebro',
 
     // Level descriptions
     headersDesc: 'La estructura de todo documento',
@@ -296,6 +313,12 @@ export const translations = {
     tableAdvancedDesc: 'Alineacion y extensiones',
     taskAdvancedDesc: 'Proyectos con subtareas',
     comparisonDesc: 'Ventajas y desventajas',
+    wikilinksDesc: 'Enlaza notas entre si',
+    imageEmbedDesc: 'Muestra imagen con estilo',
+    imageSizeDesc: 'Tamano con animacion',
+    noteEmbedDesc: 'Cita otra nota en vivo',
+    linkAliasDesc: 'Nombres y anclas',
+    graphLinksDesc: 'Mira como conectan',
 
     // Focus hints
     topRowKeys: 'Teclas de fila superior',
@@ -332,6 +355,7 @@ export const translations = {
     alignmentAndExtensions: 'Alineacion y extensiones',
     taskHierarchy: 'Jerarquia de tareas',
     emojisInTables: 'Emojis en tablas',
+    newBadge: 'nuevo',
 
     // Level titles
     headers: 'Encabezados',
@@ -368,6 +392,12 @@ export const translations = {
     tableAdvanced: 'Tablas Avanzadas',
     taskAdvanced: 'Tareas Anidadas',
     comparison: 'Tablas de Comparacion',
+    wikilinks: 'Enlaces wiki',
+    imageEmbed: 'Imagenes incrustadas',
+    imageSize: 'Tamano suave',
+    noteEmbed: 'Notas incrustadas',
+    linkAlias: 'Alias y secciones',
+    graphLinks: 'Vista grafica',
 
     // Language
     language: 'Idioma',

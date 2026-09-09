@@ -43,6 +43,7 @@ export const landingCopy = {
     currTitle: 'De `# hola` a documentación profesional.',
     currSub: '34 niveles en 5 fases. Cada uno entrena dedos y sintaxis a la vez.',
     currCta: 'Practicar esta fase →',
+    badgeNew: 'nuevo',
     featKicker: '// por qué funciona',
     featTitle: 'Mecanografía con propósito.',
     features: [
@@ -100,6 +101,7 @@ export const landingCopy = {
     currTitle: 'From `# hello` to professional docs.',
     currSub: '34 levels across 5 phases. Each one trains fingers and syntax together.',
     currCta: 'Practice this phase →',
+    badgeNew: 'new',
     featKicker: '// why it works',
     featTitle: 'Touch typing with a purpose.',
     features: [

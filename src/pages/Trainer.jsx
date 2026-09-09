@@ -225,7 +225,7 @@ function Trainer() {
                   <span className="panel-badge preview-badge">{t('preview')}</span>
                 </div>
                 <div className="preview-scroll" ref={previewRef}>
-                  <MarkdownPreview source={input} />
+                  <MarkdownPreview source={input} lang={lang} />
                 </div>
               </div>
             </div>
@@ -401,7 +401,7 @@ function Trainer() {
               <div key={phase.id} className="phase-section" style={{ '--phase-color': phase.color }}>
                 <div className="phase-header">
                   <span className="phase-title">{getPhaseTitle(phase)}</span>
-                  <span className="phase-count">{phase.levels.length} {t('levels')}</span>
+                  <span className="phase-count">{phase.levels.length} {t('levels')}{phase.isNew ? ` · ${t('newBadge')}` : ''}</span>
                 </div>
                 <div className="phase-levels">
                   {phase.levels.map((level, i) => {

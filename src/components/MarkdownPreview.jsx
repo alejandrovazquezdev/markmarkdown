@@ -6,6 +6,7 @@ import rehypeRaw from 'rehype-raw'
 import rehypeKatex from 'rehype-katex'
 import 'katex/dist/katex.min.css'
 import { preprocessMarkdown } from '../lib/markdown'
+import ObsidianGraph from './ObsidianGraph'
 
 function CodeBlock({ node, inline, className, children, ...props }) {
   const lang = /language-([\w-]+)/.exec(className || '')?.[1]
@@ -36,8 +37,11 @@ function CodeBlock({ node, inline, className, children, ...props }) {
   )
 }
 
-export default function MarkdownPreview({ source = '', className = '' }) {
-  const { body, meta } = useMemo(() => preprocessMarkdown(source), [source])
+export default function MarkdownPreview({ source = '', lang = 'es', showGraph = true, className = '' }) {
+  const { body, meta, links } = useMemo(
+    () => preprocessMarkdown(source, { lang }),
+    [source, lang],
+  )
 
   return (
     <div className={`markdown-preview md-root ${className}`}>
@@ -54,6 +58,7 @@ export default function MarkdownPreview({ source = '', className = '' }) {
       >
         {body || '...'}
       </ReactMarkdown>
+      {showGraph && links.length > 0 && <ObsidianGraph links={links} lang={lang} />}
     </div>
   )
 }

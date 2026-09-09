@@ -2,7 +2,7 @@ import { Suspense, lazy, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import { useLanguage } from '../i18n/LanguageContext'
-import { curriculum } from '../data/curriculum'
+import { curriculum, getTotalLevels } from '../data/curriculum'
 import { levelKey, phaseKey, phaseDescKey } from '../lib/keys'
 import { landingCopy, DEMO_SOURCE } from './landingCopy'
 import '../styles/landing.css'
@@ -101,6 +101,13 @@ function useTypewriter(text, { speed = 34, pause = 2600 } = {}) {
 export default function Landing() {
   const { lang, t, toggleLang } = useLanguage()
   const c = landingCopy[lang] ?? landingCopy.es
+  const total = getTotalLevels()
+  const phases = curriculum.phases.length
+  const withCounts = (s = '') =>
+    s.replaceAll('34', String(total)).replaceAll('5 fases', `${phases} fases`).replaceAll('5 phases', `${phases} phases`)
+  const stats = c.stats.map((s) => (s.num === '34' ? { ...s, num: String(total) } : s))
+  const heroSub = withCounts(c.heroSub)
+  const currSub = withCounts(c.currSub)
   const { out: typed, done: typedDone } = useTypewriter(c.heroDemoSrc)
 
   return (
@@ -130,7 +137,7 @@ export default function Landing() {
                 <br />
                 <span className="accent">{c.heroTitleB}</span>
               </h1>
-              <p className="hero-sub">{c.heroSub}</p>
+              <p className="hero-sub">{heroSub}</p>
               <div className="hero-ctas">
                 <Link className="btn-primary btn-lg" to="/app">
                   {c.heroPrimary}
@@ -142,7 +149,7 @@ export default function Landing() {
               <p className="hero-note">{c.heroNote}</p>
 
               <dl className="hero-stats">
-                {c.stats.map((s) => (
+                {stats.map((s) => (
                   <div className="hero-stat" key={s.label}>
                     <dt className="hero-stat-num">{s.num}</dt>
                     <dd className="hero-stat-label">{s.label}</dd>
@@ -236,7 +243,7 @@ export default function Landing() {
           <Reveal>
             <p className="kicker">{c.currKicker}</p>
             <h2 id="curr-title" className="section-title">{c.currTitle}</h2>
-            <p className="section-sub">{c.currSub}</p>
+            <p className="section-sub">{currSub}</p>
           </Reveal>
           <div className="phase-grid">
             {curriculum.phases.map((phase, i) => {
@@ -252,6 +259,7 @@ export default function Landing() {
                   <article className="phase-card" style={{ '--phase-color': phase.color }}>
                     <header>
                       <span className="phase-index">0{i + 1}</span>
+                      {phase.isNew && <span className="phase-new">{c.badgeNew}</span>}
                       <span className="phase-count">{phase.levels.length} · {lang === 'es' ? 'niveles' : 'levels'}</span>
                     </header>
                     <h3>{title !== phaseKey(phase.id) ? title : phase.id}</h3>

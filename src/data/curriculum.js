@@ -403,6 +403,79 @@ export const curriculum = {
           }
         }
       ]
+    },
+    {
+      id: 'obsidian',
+      color: '#9d7bff',
+      isNew: true,
+      levels: [
+        {
+          id: 'wikilinks',
+          content: {
+            en: 'Ideas grow through [[links]].\n\nMy notes live in [[My vault]].\n\nStart with [[Projects]] today.',
+            es: 'Las ideas crecen con [[enlaces]].\n\nMis notas viven en [[Mi baul]].\n\nEmpieza con [[Proyectos]] hoy.'
+          },
+          focus: {
+            en: 'Double brackets',
+            es: 'Corchetes dobles'
+          }
+        },
+        {
+          id: 'image-embed',
+          content: {
+            en: 'Look at the sketch:\n\n![[imagenejemplo.png]]\n\nIt appears with the note.',
+            es: 'Mira el boceto:\n\n![[imagenejemplo.png]]\n\nAparece con la nota.'
+          },
+          focus: {
+            en: 'Embed images',
+            es: 'Incrustar imagen'
+          }
+        },
+        {
+          id: 'image-size',
+          content: {
+            en: 'A smaller view:\n\n![[imagenejemplo.png|400]]\n\nResize glides smoothly.',
+            es: 'Una vista menor:\n\n![[imagenejemplo.png|400]]\n\nEl tamano cambia suave.'
+          },
+          focus: {
+            en: 'Smooth resize',
+            es: 'Tamano suave'
+          }
+        },
+        {
+          id: 'note-embed',
+          content: {
+            en: 'Quote from another note:\n\n![[Projects]]\n\nThe fragment stays in sync.',
+            es: 'Cita de otra nota:\n\n![[Proyectos]]\n\nEl fragmento se mantiene.'
+          },
+          focus: {
+            en: 'Transclude notes',
+            es: 'Transcluir notas'
+          }
+        },
+        {
+          id: 'link-alias',
+          content: {
+            en: 'Show [[Projects|my work]] instead.\n\nJump to [[Projects#Goals]] direct.\n\nAliases keep text clean.',
+            es: 'Muestra [[Proyectos|mi trabajo]] mejor.\n\nSalta a [[Proyectos#Metas]] directo.\n\nLos alias limpian el texto.'
+          },
+          focus: {
+            en: 'Alias and headings',
+            es: 'Alias y secciones'
+          }
+        },
+        {
+          id: 'graph-links',
+          content: {
+            en: 'This note links [[Projects]] and [[Ideas]].\n\nBoth meet inside [[My vault]].\n\nWatch the graph connect.',
+            es: 'Esta nota enlaza [[Proyectos]] e [[Ideas]].\n\nAmbas viven en [[Mi baul]].\n\nMira el grafo conectar.'
+          },
+          focus: {
+            en: 'Build the graph',
+            es: 'Construye el grafo'
+          }
+        }
+      ]
     }
   ]
 }

@@ -30,6 +30,7 @@ export const PHASE_KEY = {
   advanced: 'avanzado',
   master: 'master',
   professional: 'profesional',
+  obsidian: 'obsidian',
 }
 
 export function phaseKey(id = '') {
