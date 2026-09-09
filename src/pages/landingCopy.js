@@ -24,7 +24,7 @@ export const landingCopy = {
       { num: '2', label: 'idiomas ES/EN' },
       { num: '0', label: 'cuentas que crear' },
     ],
-    stackLabel: 'construido con',
+    footerNote: 'markmarkdown — vazquezalejandro.com',
     demoKicker: '// demo en vivo',
     demoTitle: 'Escribes markdown. Ves markdown.',
     demoSub:
@@ -59,7 +59,6 @@ export const landingCopy = {
     footerTag: 'practica typing · domina markdown',
     footerTrainer: 'Abrir trainer',
     footerRepo: 'GitHub',
-    footerNote: 'Hecho con React + Three.js · servido desde vazquezalejandro.com',
   },
   en: {
     navDemo: 'Demo',
@@ -83,7 +82,6 @@ export const landingCopy = {
       { num: '2', label: 'languages ES/EN' },
       { num: '0', label: 'accounts needed' },
     ],
-    stackLabel: 'built with',
     demoKicker: '// live demo',
     demoTitle: 'You type markdown. You see markdown.',
     demoSub:
@@ -118,7 +116,7 @@ export const landingCopy = {
     footerTag: 'practice typing · master markdown',
     footerTrainer: 'Open trainer',
     footerRepo: 'GitHub',
-    footerNote: 'Built with React + Three.js · served from vazquezalejandro.com',
+    footerNote: 'markmarkdown — vazquezalejandro.com',
   },
 }
 

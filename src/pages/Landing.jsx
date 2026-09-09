@@ -98,8 +98,6 @@ function useTypewriter(text, { speed = 34, pause = 2600 } = {}) {
   return { out, done }
 }
 
-const STACK = ['React', 'Vite', 'Three.js', 'GFM', 'KaTeX', 'ES/EN']
-
 export default function Landing() {
   const { lang, t, toggleLang } = useLanguage()
   const c = landingCopy[lang] ?? landingCopy.es
@@ -179,14 +177,6 @@ export default function Landing() {
             </div>
           </div>
 
-          <div className="stack-strip">
-            <span className="stack-label">{c.stackLabel}</span>
-            <ul>
-              {STACK.map((s) => (
-                <li key={s}>{s}</li>
-              ))}
-            </ul>
-          </div>
         </header>
 
         {/* DEMO */}

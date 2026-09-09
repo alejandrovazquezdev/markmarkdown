@@ -280,38 +280,6 @@
   padding: 0.5rem 0;
 }
 
-.stack-strip {
-  position: relative;
-  max-width: 1160px;
-  margin: 2.75rem auto 0;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-  color: var(--text-muted);
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.stack-strip ul {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.stack-strip li {
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 0.3rem 0.8rem;
-  color: var(--text-secondary);
-  text-transform: none;
-  letter-spacing: 0.02em;
-}
-
 /* ---------- SECTIONS ---------- */
 
 .section {
