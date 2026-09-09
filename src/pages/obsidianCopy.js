@@ -13,8 +13,10 @@ export const obsidianCopy = {
     graphCta: 'Ir al grafo ↓',
     explorerTitle: 'Explorador',
     viewerTitle: 'Nota',
+    backlinksTitle: 'Enlaces entrantes',
+    backlinksNone: 'Nadie enlaza aquí todavía. Crea el primer [[enlace]].',
     lessonsKicker: '// lecciones',
-    lessonsTitle: 'Siete ideas, de la más simple a la más viva.',
+    lessonsTitle: 'Nueve ideas, de la más simple a la más viva.',
     lessons: [
       {
         id: 'links',
@@ -23,7 +25,7 @@ export const obsidianCopy = {
           'En markdown normal un enlace necesita URL. En Obsidian basta el nombre de la nota entre corchetes dobles: [[Proyectos]]. Al escribirlo la nota destino se ilumina en el explorador y el grafo dibuja una arista nueva.',
           'Escríbelo abajo: cuando completes el enlace verás el chip violeta y la mini vista gráfica conectando tu nota actual.',
         ],
-        tips: ['Funciona con el nombre exacto de la nota.', 'Puedes enlazar notas que aún no existen.'],
+        tips: ['Funciona con el nombre exacto de la nota.', 'Puedes enlazar notas que aún no existen.', 'Mira quién te enlaza en los entrantes del visor.'],
         drill: 'Conecta con [[Proyectos]] hoy.',
       },
       {
@@ -65,8 +67,14 @@ export const obsidianCopy = {
           '¿Y si solo quieres UNA frase de otra nota? Cada bloque puede llevar un id: la nota Ideas guarda «Toda nota es una semilla. ^semilla». La sintaxis ![[Ideas#^semilla]] plasma exactamente esa frase al lado de la tuya.',
           'Es la cita de precisión quirúrgica del segundo cerebro.',
         ],
-        tips: ['El ^id vive al final del bloque citado.', 'Si el bloque no existe, verás un aviso.'],
+        tips: ['El ^id vive al final del bloque citado.', 'Si el bloque no existe, verás un aviso.', 'Elige abajo qué bloque citar: el drill cambia solo.'],
         drill: '![[Ideas#^semilla]]',
+        pickLabel: 'Elige el bloque a citar:',
+        blocks: [
+          { ref: 'Ideas#^semilla', label: '^semilla' },
+          { ref: 'Ideas#^riego', label: '^riego' },
+          { ref: 'Proyectos#^meta', label: '^meta' },
+        ],
       },
       {
         id: 'alias',
@@ -79,8 +87,28 @@ export const obsidianCopy = {
         drill: 'Abre [[Proyectos|mi trabajo]] y [[Ideas#Metas]].',
       },
       {
+        id: 'callouts',
+        title: '07 · Avisos con callouts',
+        intro: [
+          'Un `>` normal es una cita plana. Con `[!tipo]` se vuelve una tarjeta de color con icono: `> [!tip]` para consejos, `> [!warning]` para avisos, `> [!danger]` para peligro. Tras el corchete puedes poner tu propio título.',
+          'Con `-` la tarjeta nace plegada y con `+` nace abierta: `> [!faq]- Preguntas`. Escríbelo y mira la tarjeta nacer.',
+        ],
+        tips: ['Tipos: note, tip, success, question, warning, danger, bug, example, quote, todo.', 'Título propio tras el corchete: [!tip] Mi título.'],
+        drill: '> [!tip]\n> Riega tus notas a diario.',
+      },
+      {
+        id: 'tags',
+        title: '08 · Tags, resaltado y comentarios',
+        intro: [
+          'Las etiquetas agrupan sin carpetas: escribe #jardin pegado a la palabra y nace una píldora violeta. En Obsidian real, clicarla lista todas sus notas.',
+          'El ==doble igual== resalta como marcador y el %%doble porcentaje%% escribe notas mentales que no se ven en el resultado. Escribe las tres y observa: solo dos sobreviven.',
+        ],
+        tips: ['#tag va pegado, sin espacio tras #.', '== == para lo clave, %% %% para lo privado.'],
+        drill: 'Esto es #clave y ==brilla==.\n\n%%esto no se ve%%',
+      },
+      {
         id: 'graph',
-        title: '07 · La vista gráfica, de verdad',
+        title: '09 · La vista gráfica, de verdad',
         intro: [
           'El panel de abajo no es un adorno: es el grafo real de este mini baúl, con física. Cada línea nace de un [[enlace]] que escribiste en las lecciones 01 a 06.',
           'Cómo leerlo: el nodo verde eres tú (la nota actual). Los nodos violeta son notas y el ámbar es la imagen. Una línea entre dos nodos significa que una nota enlaza a la otra. Arrastra cualquier nodo para moverlo, usa +/− para zoom y pasa el cursor para resaltar solo sus vecinos.',
@@ -112,8 +140,10 @@ export const obsidianCopy = {
     graphCta: 'Go to graph ↓',
     explorerTitle: 'Explorer',
     viewerTitle: 'Note',
+    backlinksTitle: 'Incoming links',
+    backlinksNone: 'Nothing links here yet. Create the first [[link]].',
     lessonsKicker: '// lessons',
-    lessonsTitle: 'Seven ideas, from simplest to liveliest.',
+    lessonsTitle: 'Nine ideas, from simplest to liveliest.',
     lessons: [
       {
         id: 'links',
@@ -122,7 +152,7 @@ export const obsidianCopy = {
           'Plain markdown links need a URL. In Obsidian the note name in double brackets is enough: [[Projects]]. As you type it, the target note lights up in the explorer and the graph draws a new edge.',
           'Type it below: when the link completes you will see the violet chip and the mini graph connecting your current note.',
         ],
-        tips: ['It matches the exact note name.', 'You can link notes that do not exist yet.'],
+        tips: ['It matches the exact note name.', 'You can link notes that do not exist yet.', 'See who links you in the viewer backlinks.'],
         drill: 'Connect with [[Projects]] today.',
       },
       {
@@ -164,8 +194,14 @@ export const obsidianCopy = {
           'What if you want just ONE phrase from another note? Every block can carry an id: the Ideas note keeps “Every note is a seed. ^seed”. The syntax ![[Ideas#^seed]] lays exactly that phrase next to yours.',
           'It is the surgical quote of the second brain.',
         ],
-        tips: ['The ^id lives at the end of the quoted block.', 'If the block is missing, you will see a warning.'],
+        tips: ['The ^id lives at the end of the quoted block.', 'If the block is missing, you will see a warning.', 'Pick below which block to quote: the drill follows.'],
         drill: '![[Ideas#^seed]]',
+        pickLabel: 'Pick the block to quote:',
+        blocks: [
+          { ref: 'Ideas#^seed', label: '^seed' },
+          { ref: 'Ideas#^water', label: '^water' },
+          { ref: 'Projects#^goal', label: '^goal' },
+        ],
       },
       {
         id: 'alias',
@@ -178,8 +214,28 @@ export const obsidianCopy = {
         drill: 'Open [[Projects|my work]] and [[Ideas#Goals]].',
       },
       {
+        id: 'callouts',
+        title: '07 · Callout cards',
+        intro: [
+          'A plain `>` is a flat quote. With `[!type]` it becomes a colored card with an icon: `> [!tip]` for tips, `> [!warning]` for warnings, `> [!danger]` for danger. After the bracket you can set your own title.',
+          'With `-` the card starts folded and with `+` it starts open: `> [!faq]- Questions`. Type it and watch the card come alive.',
+        ],
+        tips: ['Types: note, tip, success, question, warning, danger, bug, example, quote, todo.', 'Own title after the bracket: [!tip] My title.'],
+        drill: '> [!tip]\n> Water your notes daily.',
+      },
+      {
+        id: 'tags',
+        title: '08 · Tags, highlights and comments',
+        intro: [
+          'Tags group without folders: type #garden glued to the word and a violet pill is born. In real Obsidian, clicking it lists all its notes.',
+          'Double ==equals== highlight like a marker and double %%percent%% writes mind notes that never show in the result. Type all three and watch: only two survive.',
+        ],
+        tips: ['#tag goes glued, no space after #.', '== == for key bits, %% %% for private ones.'],
+        drill: 'This is #key and ==shines==.\n\n%%unseen%%',
+      },
+      {
         id: 'graph',
-        title: '07 · The graph view, for real',
+        title: '09 · The graph view, for real',
         intro: [
           'The panel below is no decoration: it is the real graph of this tiny vault, with physics. Every line is born from a [[link]] you typed in lessons 01 to 06.',
           'How to read it: the green node is you (the current note). Violet nodes are notes and the amber one is the image. A line between two nodes means one note links to the other. Drag any node to move it, use +/− to zoom, and hover to highlight only its neighbors.',

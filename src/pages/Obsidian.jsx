@@ -73,6 +73,28 @@ function ResizeDemo({ lang, label }) {
   )
 }
 
+function BlockPicker({ lang, blocks, pickLabel }) {
+  const [ref, setRef] = useState(blocks[0].ref)
+  return (
+    <div className="ob-blockpick-wrap">
+      <div className="ob-blockpick" role="group" aria-label={pickLabel}>
+        <span className="ob-blockpick-label">{pickLabel}</span>
+        {blocks.map((b) => (
+          <button
+            key={b.ref}
+            type="button"
+            onClick={() => setRef(b.ref)}
+            className={`ob-blockpick-btn${b.ref === ref ? ' is-active' : ''}`}
+          >
+            {b.label}
+          </button>
+        ))}
+      </div>
+      <DrillPreview key={ref} target={`![[${ref}]]`} lang={lang} />
+    </div>
+  )
+}
+
 function GraphLesson({ lang, copy }) {
   const { nodes, edges } = useMemo(() => buildGraph(lang), [lang])
   const [tour, setTour] = useState(-1)
@@ -144,7 +166,7 @@ function Explorer({ lang, activeId, onSelect }) {
   )
 }
 
-function NoteViewer({ lang, note }) {
+function NoteViewer({ lang, note, backlinks, onOpen }) {
   const c = obsidianCopy[lang]
   if (!note) return null
   return (
@@ -163,6 +185,24 @@ function NoteViewer({ lang, note }) {
           />
         </Suspense>
       )}
+      {!note.image && (
+        <div className="ob-backlinks">
+          <p className="ob-backlinks-title">{c.backlinksTitle}</p>
+          {backlinks.length === 0 ? (
+            <p className="ob-backlinks-none">{c.backlinksNone}</p>
+          ) : (
+            <ul>
+              {backlinks.map((b) => (
+                <li key={b.id}>
+                  <button type="button" onClick={() => onOpen(b.id)} className="ob-backlink-btn">
+                    ← {noteTitle(b, lang)}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
     </div>
   )
 }
@@ -173,6 +213,15 @@ export default function Obsidian() {
   const [activeId, setActiveId] = useState('bienvenida')
   const explorerRef = useRef(null)
   const active = VAULT_NOTES.find((n) => n.id === activeId)
+
+  const backlinks = useMemo(() => {
+    if (!active || active.image) return []
+    return VAULT_NOTES.filter((n) => {
+      if (n.id === active.id || n.image) return false
+      const text = (lang === 'en' ? n.body.en : n.body.es).join('\n')
+      return transformObsidian(text, lang).links.some((name) => findNote(name, lang)?.id === active.id)
+    })
+  }, [active, lang])
 
   const openNote = (id) => {
     setActiveId(id)
@@ -210,7 +259,7 @@ export default function Obsidian() {
 
         <div className="ob-workbench" ref={explorerRef}>
           <Explorer lang={lang} activeId={activeId} onSelect={setActiveId} />
-          <NoteViewer lang={lang} note={active} />
+          <NoteViewer lang={lang} note={active} backlinks={backlinks} onOpen={openNote} />
         </div>
 
         <div id="ob-lecciones" className="ob-lessons-head">
@@ -233,6 +282,8 @@ export default function Obsidian() {
             </ul>
             {l.id === 'graph' ? (
               <GraphLesson lang={lang} copy={l} />
+            ) : l.id === 'blockref' ? (
+              <BlockPicker lang={lang} blocks={l.blocks} pickLabel={l.pickLabel} />
             ) : (
               <DrillPreview target={l.drill} lang={lang} />
             )}

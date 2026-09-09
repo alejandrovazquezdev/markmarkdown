@@ -13,8 +13,8 @@ export const VAULT_NOTES = [
     folder: 'inbox',
     name: { es: 'Bienvenida', en: 'Welcome' },
     body: {
-      es: ['# Bienvenida', '', 'Este baul es pequeno a proposito.', 'Todo enlaza con todo. ^hilo', '', 'Empieza por [[Proyectos]].'],
-      en: ['# Welcome', '', 'This vault is tiny on purpose.', 'Everything links to everything. ^thread', '', 'Start with [[Projects]].'],
+      es: ['# Bienvenida', '', 'Este baul es pequeno a proposito.', 'Todo enlaza con todo. ^hilo', '', 'Empieza por [[Proyectos]] y marca esta nota con #inicio.'],
+      en: ['# Welcome', '', 'This vault is tiny on purpose.', 'Everything links to everything. ^thread', '', 'Start with [[Projects]] and tag this note #start.'],
     },
   },
   {
@@ -22,8 +22,8 @@ export const VAULT_NOTES = [
     folder: 'proyectos',
     name: { es: 'Proyectos', en: 'Projects' },
     body: {
-      es: ['# Proyectos', '', '## Metas', '', 'Shippear markmarkdown este mes. ^meta', '', 'Ideas sueltas viven en [[Ideas]].'],
-      en: ['# Projects', '', '## Goals', '', 'Ship markmarkdown this month. ^goal', '', 'Loose ideas live in [[Ideas]].'],
+      es: ['# Proyectos', '', '## Metas', '', 'Shippear markmarkdown ==este mes==. ^meta', '', '> [!tip] Ritmo', '> Un enlace al dia mantiene el grafo vivo.', '', 'Ideas sueltas viven en [[Ideas]] con etiqueta #envio.'],
+      en: ['# Projects', '', '## Goals', '', 'Ship markmarkdown ==this month==. ^goal', '', '> [!tip] Pace', '> One link a day keeps the graph alive.', '', 'Loose ideas live in [[Ideas]] tagged #shipping.'],
     },
   },
   {
@@ -31,8 +31,8 @@ export const VAULT_NOTES = [
     folder: 'proyectos',
     name: { es: 'Ideas', en: 'Ideas' },
     body: {
-      es: ['# Ideas', '', 'Toda nota es una semilla. ^semilla', '', 'Regar a diario: releer y enlazar.'],
-      en: ['# Ideas', '', 'Every note is a seed. ^seed', '', 'Water daily: reread and link.'],
+      es: ['# Ideas', '', 'Toda nota es una semilla. ^semilla', '', 'Regar a diario: releer y enlazar. ^riego', '', 'Las semillas #jardin crecen primero.'],
+      en: ['# Ideas', '', 'Every note is a seed. ^seed', '', 'Water daily: reread and link. ^water', '', 'Seeds tagged #garden grow first.'],
     },
   },
   {
@@ -40,8 +40,8 @@ export const VAULT_NOTES = [
     folder: 'inbox',
     name: { es: 'Mi baul', en: 'My vault' },
     body: {
-      es: ['# Mi baul', '', 'Mapa de lo importante: [[Proyectos]] e [[Ideas]].', '', 'Vuelven aqui. ^mapa'],
-      en: ['# My vault', '', 'Map of what matters: [[Projects]] and [[Ideas]].', '', 'They lead back here. ^map'],
+      es: ['# Mi baul', '', 'Mapa de lo importante: [[Proyectos]] e [[Ideas]].', '', 'Todo vuelve aqui. ^mapa', '', '> [!quote] El mapa no es el territorio', '> Pero ayuda a no perderse.'],
+      en: ['# My vault', '', 'Map of what matters: [[Projects]] and [[Ideas]].', '', 'Everything leads back here. ^map', '', '> [!quote] The map is not the territory', '> But it keeps you from getting lost.'],
     },
   },
   {
@@ -74,6 +74,30 @@ export function findBlock(note, blockId = '', lang = 'es') {
     }
   }
   return null
+}
+
+// Devuelve las lineas bajo un encabezado ## hasta el siguiente encabezado.
+export function findSection(note, heading = '', lang = 'es') {
+  if (!note || note.image) return null
+  const lines = lang === 'en' ? note.body.en : note.body.es
+  const norm = (h) => h.replace(/^#+\s*/, '').trim().toLowerCase()
+  const want = heading.trim().toLowerCase()
+  let start = -1
+  for (let i = 0; i < lines.length; i++) {
+    if (/^#+\s/.test(lines[i]) && norm(lines[i]) === want) {
+      start = i + 1
+      break
+    }
+  }
+  if (start < 0) return null
+  const out = []
+  for (let i = start; i < lines.length; i++) {
+    if (/^#+\s/.test(lines[i])) break
+    out.push(lines[i])
+  }
+  while (out.length && out[0].trim() === '') out.shift()
+  while (out.length && out[out.length - 1].trim() === '') out.pop()
+  return out.length ? out : null
 }
 
 export function noteTitle(note, lang = 'es') {
