@@ -1,4 +1,4 @@
-import { Suspense, lazy, useMemo, useRef, useState } from 'react'
+import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import MiniDrill from '../components/MiniDrill'
@@ -75,6 +75,10 @@ function ResizeDemo({ lang, label }) {
 
 function BlockPicker({ lang, blocks, pickLabel }) {
   const [ref, setRef] = useState(blocks[0].ref)
+  // Al cambiar de idioma los ^id cambian: resetea al primero del idioma.
+  useEffect(() => {
+    setRef(blocks[0].ref)
+  }, [lang, blocks])
   return (
     <div className="ob-blockpick-wrap">
       <div className="ob-blockpick" role="group" aria-label={pickLabel}>

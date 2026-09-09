@@ -13,8 +13,8 @@ export const VAULT_NOTES = [
     folder: 'inbox',
     name: { es: 'Bienvenida', en: 'Welcome' },
     body: {
-      es: ['# Bienvenida', '', 'Este baul es pequeno a proposito.', 'Todo enlaza con todo. ^hilo', '', 'Empieza por [[Proyectos]] y marca esta nota con #inicio.'],
-      en: ['# Welcome', '', 'This vault is tiny on purpose.', 'Everything links to everything. ^thread', '', 'Start with [[Projects]] and tag this note #start.'],
+      es: ['# Bienvenida', '', 'Este baul es pequeno a proposito.', 'Todo enlaza con todo. ^hilo', '', 'Empieza por [[Proyectos]] y marca esta nota con #inicio.', '', 'Nada aqui es definitivo: todo se reescribe. ^borrador', '', 'Lee despacio y enlaza sin miedo.'],
+      en: ['# Welcome', '', 'This vault is tiny on purpose.', 'Everything links to everything. ^thread', '', 'Start with [[Projects]] and tag this note #start.', '', 'Nothing here is final: everything gets rewritten. ^draft', '', 'Read slowly and link without fear.'],
     },
   },
   {
@@ -22,8 +22,8 @@ export const VAULT_NOTES = [
     folder: 'proyectos',
     name: { es: 'Proyectos', en: 'Projects' },
     body: {
-      es: ['# Proyectos', '', '## Metas', '', 'Shippear markmarkdown ==este mes==. ^meta', '', '> [!tip] Ritmo', '> Un enlace al dia mantiene el grafo vivo.', '', 'Ideas sueltas viven en [[Ideas]] con etiqueta #envio.'],
-      en: ['# Projects', '', '## Goals', '', 'Ship markmarkdown ==this month==. ^goal', '', '> [!tip] Pace', '> One link a day keeps the graph alive.', '', 'Loose ideas live in [[Ideas]] tagged #shipping.'],
+      es: ['# Proyectos', '', '## Metas', '', 'Shippear markmarkdown ==este mes==. ^meta', '', 'Revisar el tablero cada viernes. ^viernes', '', '- [ ] Publicar la version 1.0', '- [x] Abrir el baul', '', '> [!tip] Ritmo', '> Un enlace al dia mantiene el grafo vivo.', '', 'Ideas sueltas viven en [[Ideas]] con etiqueta #envio.'],
+      en: ['# Projects', '', '## Goals', '', 'Ship markmarkdown ==this month==. ^goal', '', 'Review the board every Friday. ^friday', '', '- [ ] Ship version 1.0', '- [x] Open the vault', '', '> [!tip] Pace', '> One link a day keeps the graph alive.', '', 'Loose ideas live in [[Ideas]] tagged #shipping.'],
     },
   },
   {
@@ -31,8 +31,8 @@ export const VAULT_NOTES = [
     folder: 'proyectos',
     name: { es: 'Ideas', en: 'Ideas' },
     body: {
-      es: ['# Ideas', '', 'Toda nota es una semilla. ^semilla', '', 'Regar a diario: releer y enlazar. ^riego', '', 'Las semillas #jardin crecen primero.'],
-      en: ['# Ideas', '', 'Every note is a seed. ^seed', '', 'Water daily: reread and link. ^water', '', 'Seeds tagged #garden grow first.'],
+      es: ['# Ideas', '', 'Toda nota es una semilla. ^semilla', '', 'Regar a diario: releer y enlazar. ^riego', '', 'Anota sin juzgar: editar viene despues.', '', 'Lo tachado ~~ya no sirve~~ y lo ==clave== brilla.', '', 'Las semillas #jardin crecen primero.'],
+      en: ['# Ideas', '', 'Every note is a seed. ^seed', '', 'Water daily: reread and link. ^water', '', 'Capture without judging: editing comes later.', '', 'The struck ~~no longer serves~~ and the ==key== bits shine.', '', 'Seeds tagged #garden grow first.'],
     },
   },
   {
@@ -40,8 +40,8 @@ export const VAULT_NOTES = [
     folder: 'inbox',
     name: { es: 'Mi baul', en: 'My vault' },
     body: {
-      es: ['# Mi baul', '', 'Mapa de lo importante: [[Proyectos]] e [[Ideas]].', '', 'Todo vuelve aqui. ^mapa', '', '> [!quote] El mapa no es el territorio', '> Pero ayuda a no perderse.'],
-      en: ['# My vault', '', 'Map of what matters: [[Projects]] and [[Ideas]].', '', 'Everything leads back here. ^map', '', '> [!quote] The map is not the territory', '> But it keeps you from getting lost.'],
+      es: ['# Mi baul', '', 'Mapa de lo importante: [[Proyectos]] e [[Ideas]].', '', 'Todo vuelve aqui. ^mapa', '', 'Este mapa cambia: vuelve cada semana.', '', 'Archiva lo viejo con #archivo y sigue.', '', '> [!quote] El mapa no es el territorio', '> Pero ayuda a no perderse.'],
+      en: ['# My vault', '', 'Map of what matters: [[Projects]] and [[Ideas]].', '', 'Everything leads back here. ^map', '', 'This map changes: revisit weekly.', '', 'Archive the old with #archive and move on.', '', '> [!quote] The map is not the territory', '> But it keeps you from getting lost.'],
     },
   },
   {
