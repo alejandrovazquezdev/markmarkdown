@@ -74,7 +74,7 @@ body {
 }
 
 .nav-container {
-  max-width: 1000px;
+  max-width: 1360px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -162,7 +162,7 @@ body {
 }
 
 .main-container {
-  max-width: 920px;
+  max-width: 1360px;
   margin: 0 auto;
   padding: 6rem 2rem 4rem;
 }
@@ -299,8 +299,9 @@ body {
 
 .typing-split {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 1.75rem;
+  align-items: stretch;
 }
 
 .typing-panel {
@@ -342,17 +343,20 @@ body {
 }
 
 .text-display {
-  font-size: 1rem;
+  font-size: 1.02rem;
   letter-spacing: 0.03em;
   line-height: 2;
-  padding: 1.25rem;
+  padding: 1.25rem 1.4rem;
   background: var(--bg-input);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   margin-bottom: 0.75rem;
   word-break: break-word;
   cursor: text;
-  min-height: 140px;
+  min-height: 300px;
+  max-height: 480px;
+  overflow-y: auto;
+  scroll-padding: 2.5rem 0;
   font-family: var(--font-mono);
   white-space: pre-wrap;
   user-select: none;
@@ -387,7 +391,7 @@ body {
 
 .typing-input {
   width: 100%;
-  min-height: 100px;
+  min-height: 88px;
   background: var(--bg-input);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
@@ -437,12 +441,20 @@ body {
 
 /* MARKDOWN PREVIEW */
 .preview-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
   background: var(--bg-secondary);
   border-left: 3px solid var(--terminal-green);
   border-radius: var(--radius-sm);
   padding: 1.25rem;
-  overflow: auto;
-  max-height: 400px;
+}
+
+.preview-scroll {
+  flex: 1;
+  min-height: 300px;
+  overflow-y: auto;
+  scroll-padding: 1rem 0;
 }
 
 .markdown-preview {
@@ -1215,7 +1227,8 @@ body {
   .text-display {
     font-size: 0.95rem;
     padding: 1rem;
-    min-height: 120px;
+    min-height: 220px;
+    max-height: 320px;
     line-height: 1.9;
   }
 
@@ -1224,9 +1237,14 @@ body {
   }
 
   .preview-panel {
-    max-height: 250px;
+    max-height: none;
     border-left: none;
     border-top: 3px solid var(--terminal-green);
+  }
+
+  .preview-scroll {
+    min-height: 0;
+    max-height: 320px;
   }
 
   .completion-stats {

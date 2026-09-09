@@ -21,6 +21,8 @@ function Trainer() {
   const [showGuide, setShowGuide] = useState(false)
   const containerRef = useRef(null)
   const inputRef = useRef(null)
+  const displayRef = useRef(null)
+  const previewRef = useRef(null)
 
   const levelData = getLevelByIndex(currentLevel, lang)
   const totalLevels = getTotalLevels()
@@ -49,6 +51,8 @@ function Trainer() {
 
   useEffect(() => {
     window.scrollTo(0, 0)
+    displayRef.current?.scrollTo(0, 0)
+    previewRef.current?.scrollTo(0, 0)
   }, [currentLevel])
 
   useEffect(() => {
@@ -64,6 +68,24 @@ function Trainer() {
       return () => clearTimeout(timer)
     }
   }, [currentLevel])
+
+  // Mantiene visible el caracter actual mientras escribes y el preview
+  // acompana el render hasta abajo.
+  useEffect(() => {
+    const box = displayRef.current
+    const caret = box?.querySelector('.char.current')
+    if (box && caret) {
+      const top = caret.offsetTop
+      const bottom = top + caret.offsetHeight
+      if (top < box.scrollTop) box.scrollTop = top - 16
+      else if (bottom > box.scrollTop + box.clientHeight) {
+        box.scrollTop = bottom - box.clientHeight + 16
+      }
+    }
+    if (previewRef.current) {
+      previewRef.current.scrollTop = previewRef.current.scrollHeight
+    }
+  }, [input])
 
   const handleInput = (e) => {
     const val = e.target.value
@@ -183,7 +205,7 @@ function Trainer() {
                   <span className="panel-title">{t('sourceMd')}</span>
                   <span className="panel-badge">{t('input')}</span>
                 </div>
-                <div className="text-display" onClick={() => inputRef.current?.focus()}>
+                <div className="text-display" ref={displayRef} onClick={() => inputRef.current?.focus()}>
                   {renderText()}
                 </div>
                 <textarea
@@ -202,7 +224,9 @@ function Trainer() {
                   <span className="panel-title">{t('output')}</span>
                   <span className="panel-badge preview-badge">{t('preview')}</span>
                 </div>
-                <MarkdownPreview source={input} />
+                <div className="preview-scroll" ref={previewRef}>
+                  <MarkdownPreview source={input} />
+                </div>
               </div>
             </div>
           </div>
