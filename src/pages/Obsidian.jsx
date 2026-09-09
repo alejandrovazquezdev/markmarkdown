@@ -81,9 +81,24 @@ function GraphLesson({ lang, copy }) {
     [edges, tour],
   )
   const done = tour >= edges.length - 1
+  const labelOf = (id) => nodes.find((n) => n.id === id)?.label ?? id
   return (
     <div className="ob-graph-lesson">
+      <ul className="ob-legend" aria-label="legend">
+        <li><span className="ob-dot-sample is-you" aria-hidden="true" />{copy.legendYou}</li>
+        <li><span className="ob-dot-sample is-note" aria-hidden="true" />{copy.legendNote}</li>
+        <li><span className="ob-dot-sample is-image" aria-hidden="true" />{copy.legendImage}</li>
+      </ul>
       <ForceGraph nodes={nodes} edges={hot} lang={lang} />
+      <p className="ob-conn-title">{copy.connectionsTitle}</p>
+      <ol className="ob-conn-list">
+        {edges.map((e, i) => (
+          <li key={e.key} className={i <= tour ? 'is-seen' : ''}>
+            <span className="ob-conn-num">{i + 1}</span>
+            {labelOf(e.a)} <span aria-hidden="true">→</span> {labelOf(e.b)}
+          </li>
+        ))}
+      </ol>
       <div className="ob-tour-row">
         {!done ? (
           <button type="button" className="btn-primary" onClick={() => setTour((t) => t + 1)}>
@@ -187,7 +202,7 @@ export default function Obsidian() {
             <a className="btn-primary btn-lg" href="#ob-lecciones">
               {c.startCta}
             </a>
-            <a className="btn-secondary btn-lg" href="#ob-grafo">
+            <a className="btn-secondary btn-lg" href="#ob-lesson-graph">
               {c.graphCta}
             </a>
           </div>
@@ -216,7 +231,11 @@ export default function Obsidian() {
                 <li key={tip}>{tip}</li>
               ))}
             </ul>
-            <DrillPreview target={l.drill} lang={lang} />
+            {l.id === 'graph' ? (
+              <GraphLesson lang={lang} copy={l} />
+            ) : (
+              <DrillPreview target={l.drill} lang={lang} />
+            )}
             {l.id === 'resize' && <ResizeDemo lang={lang} label={l.sliderLabel} />}
             {l.id === 'transclude' && (
               <button type="button" className="ob-original-btn" onClick={() => openNote('proyectos')}>
@@ -225,11 +244,6 @@ export default function Obsidian() {
             )}
           </section>
         ))}
-
-        <section id="ob-grafo" className="ob-graph-section" aria-labelledby="ob-t-graph">
-          <p className="kicker">{c.lessons[6].id === 'graph' ? '// graph' : '// grafo'}</p>
-          <GraphLesson lang={lang} copy={c.lessons[6]} />
-        </section>
 
         <section className="final" aria-labelledby="ob-final-t">
           <div className="final-inner">
