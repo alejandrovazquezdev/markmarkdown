@@ -298,6 +298,17 @@ export default function Landing() {
         </section>
 
         {/* FINAL */}
+        <section className="ob-promo" aria-labelledby="promo-title">
+          <Reveal className="ob-promo-inner">
+            <p className="kicker">{c.promoKicker}</p>
+            <h2 id="promo-title">{c.promoTitle}</h2>
+            <p>{c.promoSub}</p>
+            <Link className="btn-secondary btn-lg" to="/obsidian">
+              {c.promoCta}
+            </Link>
+          </Reveal>
+        </section>
+
         <section className="final" aria-labelledby="final-title">
           <Reveal className="final-inner">
             <h2 id="final-title">{c.finalTitle}</h2>

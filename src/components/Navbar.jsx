@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-function Navbar({ lang, onToggleLang, variant = 'trainer', strings }) {
+function Navbar({ lang, onToggleLang, variant = 'trainer', strings, tag }) {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -34,12 +34,13 @@ function Navbar({ lang, onToggleLang, variant = 'trainer', strings }) {
               <a className="nav-link" href="#demo">{strings.navDemo}</a>
               <a className="nav-link" href="#como">{strings.navHow}</a>
               <a className="nav-link" href="#curriculo">{strings.navCurriculum}</a>
+              <Link className="nav-link nav-link-ob" to="/obsidian">✦ {strings.navObsidian}</Link>
               <Link className="nav-cta" to="/app">{strings.navCta}</Link>
             </>
           ) : (
             <>
               <Link className="nav-link" to="/">← markmarkdown</Link>
-              <span className="nav-label">// curriculum</span>
+              <span className="nav-label">{tag ?? '// curriculum'}</span>
             </>
           )}
           <button className="lang-toggle" onClick={onToggleLang} aria-label="toggle language">

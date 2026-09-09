@@ -10,6 +10,8 @@
 // - Frontmatter `--- yaml ---` -> se extrae y se muestra como bloque meta.
 // - Mermaid no se toca aqui: `MarkdownPreview` lo detecta por lenguaje.
 
+import { findNote, findBlock } from '../data/vault'
+
 export const EMOJI_MAP = {
   rocket: '🚀',
   sparkles: '✨',
@@ -122,10 +124,18 @@ function transformObText(text = '', lang = 'es', links) {
   // 1. Embeds ![[...]] (antes que los links para no chocar con [[...]]).
   text = text.replace(/!\[\[([^\]\n]+)\]\]/g, (_, inner) => {
     const bar = inner.indexOf('|')
-    const target = (bar >= 0 ? inner.slice(0, bar) : inner).trim()
+    const rawTarget = (bar >= 0 ? inner.slice(0, bar) : inner).trim()
     const size = bar >= 0 ? parseInt(inner.slice(bar + 1), 10) : NaN
     const width = Number.isFinite(size) && size > 0 ? Math.min(size, 900) : 0
-    if (!target) return _
+    if (!rawTarget) return _
+    // Separa posible #seccion o #^bloque del destino.
+    let target = rawTarget
+    let anchor = null
+    const hash = rawTarget.indexOf('#')
+    if (hash >= 0) {
+      anchor = rawTarget.slice(hash + 1).trim()
+      target = rawTarget.slice(0, hash).trim()
+    }
     if (IMAGE_EXT.test(target)) {
       const base = target.split('/').pop().toLowerCase()
       if (base === EXAMPLE_IMAGE) {
@@ -133,6 +143,17 @@ function transformObText(text = '', lang = 'es', links) {
         return `<img class="ob-img" src="/${EXAMPLE_IMAGE}" alt="${escapeAttr(target)}"${style} loading="lazy" />`
       }
       return `<span class="ob-missing">imagen no encontrada: ${escapeHtml(target)}</span>`
+    }
+    // Cita textual de un bloque: ![[nota#^id]] muestra esa frase exacta.
+    if (anchor && anchor.startsWith('^')) {
+      const note = findNote(target, lang)
+      const quote = note ? findBlock(note, anchor.slice(1), lang) : null
+      links.push(target)
+      if (quote) {
+        const head = lang === 'es' ? `cita textual de ${target}` : `exact quote from ${target}`
+        return `<div class="ob-transclude ob-blockref"><div class="ob-transclude-head">${escapeHtml(head)} · ^${escapeHtml(anchor.slice(1))}</div><p class="ob-quote">“${escapeHtml(quote)}”</p></div>`
+      }
+      return `<span class="ob-missing">bloque ^${escapeHtml(anchor.slice(1))} no encontrado en ${escapeHtml(target)}</span>`
     }
     links.push(target)
     const head = lang === 'es' ? 'Fragmento incrustado' : 'Embedded fragment'

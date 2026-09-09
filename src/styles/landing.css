@@ -598,6 +598,57 @@
   margin: 0;
 }
 
+/* Promo Obsidian */
+
+.ob-promo {
+  max-width: 1160px;
+  margin: 4rem auto 0;
+  padding: 0 1.5rem;
+}
+
+.ob-promo-inner {
+  border: 1px solid #9d7bff55;
+  border-radius: 16px;
+  padding: clamp(2rem, 4vw, 3rem);
+  background:
+    radial-gradient(ellipse 70% 100% at 50% 120%, rgba(157, 123, 255, 0.14), transparent 70%),
+    var(--bg-card);
+}
+
+.ob-promo-inner .kicker {
+  border-color: #9d7bff55;
+  background: rgba(157, 123, 255, 0.07);
+  color: #9d7bff;
+}
+
+.ob-promo-inner .kicker-dot {
+  background: #9d7bff;
+  box-shadow: 0 0 12px #9d7bff;
+}
+
+.ob-promo-inner h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  margin: 0 0 0.6rem;
+  letter-spacing: -0.015em;
+}
+
+.ob-promo-inner p {
+  color: var(--text-secondary);
+  margin: 0 0 1.4rem;
+  max-width: 40rem;
+  line-height: 1.65;
+}
+
+.nav-link-ob {
+  color: #9d7bff;
+}
+
+.nav-link-ob:hover {
+  color: #9d7bff;
+  text-decoration: underline;
+}
+
 /* Final + footer */
 
 .final {

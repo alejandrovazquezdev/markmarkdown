@@ -766,6 +766,21 @@ body {
   color: var(--text-muted);
 }
 
+.ob-blockref {
+  border-left-color: var(--terminal-green);
+  background: rgba(0, 255, 157, 0.05);
+}
+
+.ob-quote {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  border-left: 3px solid var(--terminal-green);
+  padding-left: 0.9rem;
+  margin: 0.5rem 0 0.2rem;
+}
+
 .ob-graph {
   border: 1px solid #9d7bff44;
   border-radius: var(--radius-sm);

@@ -5,6 +5,7 @@ import Landing from './pages/Landing'
 import './styles/global.css'
 
 const Trainer = lazy(() => import('./pages/Trainer'))
+const Obsidian = lazy(() => import('./pages/Obsidian'))
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/app" element={<Trainer />} />
+            <Route path="/obsidian" element={<Obsidian />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Suspense>
