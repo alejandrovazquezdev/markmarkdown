@@ -19,6 +19,7 @@ function Trainer() {
   const [wpm, setWpm] = useState(0)
   const [accuracy, setAccuracy] = useState(100)
   const [showGuide, setShowGuide] = useState(false)
+  const [showComplete, setShowComplete] = useState(true)
   const containerRef = useRef(null)
   const inputRef = useRef(null)
   const displayRef = useRef(null)
@@ -130,11 +131,13 @@ function Trainer() {
     setWpm(0)
     setAccuracy(100)
     setIsComplete(false)
+    setShowComplete(true)
     setTimeout(() => inputRef.current?.focus(), 100)
   }
 
   const goToLevel = (idx) => {
     setCurrentLevel(idx)
+    setShowComplete(true)
     resetLevel()
   }
 
@@ -142,13 +145,24 @@ function Trainer() {
     const stats = computeStats({ input, target: levelData.content, startTime })
     const { inputG, targetG } = stats
     return targetG.map((char, i) => {
+      const isCurrent = i === inputG.length
+      const isTyped = i < inputG.length
       let className = 'char'
-      if (i < inputG.length) {
+      if (isTyped) {
         className += inputG[i] === char ? ' correct' : ' incorrect'
-      } else if (i === inputG.length) {
+      } else if (isCurrent) {
         className += ' current'
       }
       if (char === ' ') className += ' space'
+      // El salto de linea no tiene ancho: sin glifo visible el marcador
+      // desaparece al cambiar de renglon. Se muestra ⏎ solo en el actual.
+      if (char === '\n') {
+        return (
+          <span key={i} className={`${className} nl`}>
+            {isCurrent ? '⏎\n' : '\n'}
+          </span>
+        )
+      }
       return <span key={i} className={className}>{char}</span>
     })
   }
@@ -215,6 +229,7 @@ function Trainer() {
                   className="typing-input"
                   placeholder={t('writeHere')}
                   disabled={isComplete}
+                  maxLength={levelData.content.length}
                   autoFocus
                 />
               </div>
@@ -231,10 +246,13 @@ function Trainer() {
             </div>
           </div>
 
-          {/* Completion Modal */}
-          {isComplete && (
-            <div className="completion-overlay">
-              <div className="completion-card">
+          {/* Completion Modal (descartable para revisar el resultado) */}
+          {isComplete && showComplete && (
+            <div className="completion-overlay" onClick={() => setShowComplete(false)}>
+              <div className="completion-card" onClick={(e) => e.stopPropagation()} role="dialog" aria-label={t('levelComplete')}>
+                <button type="button" className="completion-close" onClick={() => setShowComplete(false)} aria-label={t('close')}>
+                  ×
+                </button>
                 <div className="completion-icon">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
@@ -253,6 +271,9 @@ function Trainer() {
                   </div>
                 </div>
                 <div className="completion-actions">
+                  <button className="btn-secondary" onClick={() => setShowComplete(false)}>
+                    {t('viewResult')}
+                  </button>
                   <button className="btn-secondary" onClick={resetLevel}>
                     {t('repeat')}
                   </button>
@@ -362,6 +383,24 @@ function Trainer() {
             </div>
           )}
         </div>
+
+        {/* Barra flotante cuando se oculta el modal para revisar */}
+        {isComplete && !showComplete && (
+          <div className="result-bar" role="status">
+            <span className="result-bar-done">✓ {wpm} · {accuracy}%</span>
+            <button className="btn-secondary" onClick={() => setShowComplete(true)}>
+              {t('summary')}
+            </button>
+            <button className="btn-secondary" onClick={resetLevel}>
+              {t('repeat')}
+            </button>
+            {currentLevel < totalLevels - 1 && (
+              <button className="btn-primary" onClick={nextLevel}>
+                {t('next')}
+              </button>
+            )}
+          </div>
+        )}
 
         {/* Navigation */}
         <div className="level-navigation">

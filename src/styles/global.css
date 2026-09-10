@@ -1297,6 +1297,65 @@ details.ob-callout[open] summary::after {
   font-size: 0.85rem;
 }
 
+.completion-card {
+  position: relative;
+}
+
+.completion-close {
+  position: absolute;
+  top: -1.5rem;
+  right: -1.5rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  color: var(--text-muted);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  line-height: 1;
+}
+
+.completion-close:hover {
+  color: var(--text-primary);
+  border-color: var(--text-muted);
+}
+
+/* Barra flotante para revisar el resultado tras completar */
+
+.result-bar {
+  position: fixed;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.7rem 0.6rem 1rem;
+  background: rgba(17, 17, 17, 0.96);
+  border: 1px solid var(--border-accent);
+  border-radius: 999px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+  font-size: 0.8rem;
+  animation: fadeIn 0.25s ease;
+}
+
+.result-bar-done {
+  color: var(--terminal-green);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.result-bar .btn-primary,
+.result-bar .btn-secondary {
+  padding: 0.5rem 0.9rem;
+  font-size: 0.75rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
 /* GUIDE OVERLAY */
 .guide-overlay {
   position: absolute;

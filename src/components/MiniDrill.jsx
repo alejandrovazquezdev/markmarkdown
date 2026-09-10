@@ -34,11 +34,19 @@ export default function MiniDrill({ target = '', lang = 'es', hint, onInput }) {
     <div className={`mini-drill${done ? ' is-done' : ''}`}>
       <div className="mini-drill-text" aria-label={hint ?? target}>
         {targetG.map((ch, i) => {
+          const isCurrent = i === inputG.length
+          const isTyped = i < inputG.length
           let cls = 'char'
-          if (i < inputG.length) cls += inputG[i] === ch ? ' correct' : ' incorrect'
-          else if (i === inputG.length) cls += ' current'
+          if (isTyped) cls += inputG[i] === ch ? ' correct' : ' incorrect'
+          else if (isCurrent) cls += ' current'
           if (ch === ' ') cls += ' space'
-          if (ch === '\n') return <span key={i} className={cls + ' nl'}>{'\n'}</span>
+          if (ch === '\n') {
+            return (
+              <span key={i} className={`${cls} nl`}>
+                {isCurrent ? '⏎\n' : '\n'}
+              </span>
+            )
+          }
           return (
             <span key={i} className={cls}>
               {ch}
@@ -51,6 +59,7 @@ export default function MiniDrill({ target = '', lang = 'es', hint, onInput }) {
           value={value}
           onChange={handle}
           rows={Math.min(4, target.split('\n').length + 1)}
+          maxLength={target.length}
           className="mini-drill-input"
           placeholder={lang === 'es' ? '$ escríbelo aquí…' : '$ type it here…'}
           aria-label={lang === 'es' ? 'Practica aquí' : 'Practice here'}

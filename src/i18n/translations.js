@@ -49,6 +49,8 @@ export const translations = {
     levelComplete: '// level complete',
     repeat: '~ repeat',
     next: '>> next',
+    viewResult: 'see result',
+    summary: 'summary',
 
     // Navigation
     prev: '<< prev',
@@ -253,6 +255,8 @@ export const translations = {
     levelComplete: '// nivel completado',
     repeat: '~ repetir',
     next: '>> siguiente',
+    viewResult: 'ver resultado',
+    summary: 'resumen',
 
     // Navigation
     prev: '<< anterior',

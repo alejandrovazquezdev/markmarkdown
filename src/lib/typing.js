@@ -38,7 +38,10 @@ export function computeStats({ input, target, startTime, now = Date.now() }) {
   }
 
   const minutes = (now - startTime) / 60000
-  const wpm = minutes > 0 ? Math.round(inputG.length / 5 / minutes) : 0
+  const raw = minutes > 0 ? Math.round(inputG.length / 5 / minutes) : 0
+  // Tope de medicion: con tiempos casi cero (pegar texto) el cociente se
+  // dispara; nadie tipea arriba de 300 PPM reales.
+  const wpm = Math.min(300, raw)
 
   const { correct } = countCorrect(inputG, targetG)
   const accuracy = inputG.length > 0 ? Math.round((correct / inputG.length) * 100) : 100

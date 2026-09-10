@@ -97,7 +97,7 @@ export function transformDefinitionLists(src = '') {
   // `Termino` en una linea y `: definicion` en la siguiente.
   // No toca citas, tablas, listas, encabezados, codigo ni HTML.
   return src.replace(
-    /^([^>\s#|\-*\d`\[!:][^\n]*)\n: (.+)$/gm,
+    /^([^>\s#|\-*\d`[!:][^\n]*)\n: (.+)$/gm,
     '**$1**\n\n> $2',
   )
 }
